@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 public class Main {
   public static final int SIMULATION_STEPS = 4 * 60 * 60;
+  public static final int SPEEDUP_FACTOR = 20;
   public static TraCIPosition fromBoundary, toBoundary;
 
   private static File resourceFolder = new File("src/main/resources");
@@ -59,11 +60,11 @@ public class Main {
 
     for (int i = 0; i < SIMULATION_STEPS; i++) {
       Simulation.step();
-      if (i == 3000) {
-        System.out.println("BREAK");
+      if (i % 5 == 0) {
+        Vehicle.add("car"+i, "route", "passenger");
       }
       try {
-        Thread.sleep(500);
+        Thread.sleep(1000 / SPEEDUP_FACTOR);
       } catch (InterruptedException e) {
         throw new RuntimeException(e);
       }
