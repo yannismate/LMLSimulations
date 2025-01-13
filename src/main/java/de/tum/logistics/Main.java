@@ -1,21 +1,22 @@
 package de.tum.logistics;
 
 import org.eclipse.sumo.libtraci.*;
-import org.joml.Vector2f;
 
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Main {
+
   public static final int SIMULATION_STEPS = 4 * 60 * 60;
   public static final int SPEEDUP_FACTOR = 20;
+  private static final File resourceFolder = new File("src/main/resources");
+
   public static TraCIPosition fromBoundary, toBoundary;
 
-  private static File resourceFolder = new File("src/main/resources");
+
   public static void main(String[] args) {
     System.loadLibrary("libtracijni");
     File netFile = new File(resourceFolder, "osm.net.xml.gz");
@@ -24,44 +25,42 @@ public class Main {
     fromBoundary = boundary.get(0);
     toBoundary = boundary.get(1);
 
-    Map<String, Set<String>> streetNameToEdge = new HashMap<>();
-    StringVector edgeIDs = Edge.getIDList();
-    for (String edgeID : edgeIDs) {
-      String streetName = Edge.getStreetName(edgeID);
-      if (streetName == null || streetName.isEmpty()) {
+    Set<String> allowedEdges = new HashSet<>();
+    for (String edgeID : Edge.getIDList()) {
+      if (edgeID.startsWith(":") || edgeID.contains("cluster")) {
         continue;
       }
-      streetNameToEdge.computeIfAbsent(streetName, k -> new HashSet<>()).add(edgeID);
+      if(lanesFromEdge(edgeID).stream().anyMatch(laneId -> Lane.getAllowed(laneId).contains("passenger"))) {
+        allowedEdges.add(edgeID);
+      }
     }
 
     VehicleType.copy("DEFAULT_VEHTYPE", "passenger");
 
-    streetNameToEdge.forEach((s, strings) -> {
-      System.out.println(s + " has " + strings.size() + " edges");
-    });
+    Random random = new Random();
 
-    String fromStreet = streetNameToEdge.keySet().stream().filter(s -> s.startsWith("Dachauer")).findFirst().get();
-    String toStreet = streetNameToEdge.keySet().stream().filter(s -> s.contains("Geschwister")).findFirst().get();
+    for (int i = 0; i < 100; i++) {
+      System.out.println("Generating route route" + i + "...");
+      String fromEdge = allowedEdges.stream().skip(random.nextInt(allowedEdges.size())).findFirst().get();
+      String toEdge = allowedEdges.stream().skip(random.nextInt(allowedEdges.size())).findFirst().get();
 
-    System.out.println("From street: " + fromStreet);
-    System.out.println("To street: " + toStreet);
+      TraCIStage route = Simulation.findRoute(fromEdge, toEdge, "passenger");
+      if (route.getLength() <= 1.0) {
+        i--;
+        continue;
+      }
 
-    Set<String> fromEdges = streetNameToEdge.get(fromStreet);
-    Set<String> toEdges = streetNameToEdge.get(toStreet);
+      System.out.println("From edge: " + fromEdge);
+      System.out.println("To edge: " + toEdge);
 
-    String fromEdge = pickAllowedEdge(fromEdges, new ArrayList<>(Arrays.asList("passenger")));
-    String toEdge = pickAllowedEdge(toEdges, new ArrayList<>(Arrays.asList("passenger")));
-
-    System.out.println("From edge: " + fromEdge);
-    System.out.println("To edge: " + toEdge);
-
-    Route.add("route", new StringVector(new String[]{fromEdge, toEdge}));
-    Vehicle.add("car", "route", "passenger");
+      Route.add("route" + i, new StringVector(new String[]{fromEdge, toEdge}));
+      Vehicle.add("car" + i, "route" + i, "passenger");
+    }
 
     for (int i = 0; i < SIMULATION_STEPS; i++) {
       Simulation.step();
-      if (i % 5 == 0) {
-        Vehicle.add("car"+i, "route", "passenger");
+      if (i == 3000) {
+        System.out.println("BREAK");
       }
       try {
         Thread.sleep(1000 / SPEEDUP_FACTOR);
@@ -70,21 +69,6 @@ public class Main {
       }
     }
     Simulation.close();
-  }
-
-  private static String pickAllowedEdge(Set<String> edges, List<String> vTypes) {
-    for (String edge : edges) {
-      List<String> lanes = lanesFromEdge(edge);
-      for (String lane : lanes) {
-        StringVector allowed = Lane.getAllowed(lane);
-        for (String allowedVType : allowed) {
-          if (vTypes.contains(allowedVType)) {
-            return edge;
-          }
-        }
-      }
-    }
-    return null;
   }
 
   public static List<String> lanesFromEdge(String edgeID) {
