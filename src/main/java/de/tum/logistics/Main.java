@@ -4,6 +4,7 @@ import org.eclipse.sumo.libtraci.*;
 
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -33,40 +34,80 @@ public class Main {
       }
     }
 
-    VehicleType.copy("DEFAULT_VEHTYPE", "passenger");
+    for (String s : VehicleType.getIDList()) {
+      System.out.println(s);
+    }
 
-    RandomRouteGenerator randomRouteGenerator = new RandomRouteGenerator("passenger", 10000, fromBoundary, toBoundary);
-    randomRouteGenerator.startPopulatingThread();
+    VehicleType.copy("DEFAULT_VEHTYPE", "passenger");
+    VehicleType.copy("DEFAULT_BIKETYPE", "bicycle");
+
+    RandomRouteGenerator pkwRouteGen = new RandomRouteGenerator("passenger", 10000, fromBoundary, toBoundary);
+    RandomRouteGenerator bikeRouteGen = new RandomRouteGenerator("bicycle", 5000, fromBoundary, toBoundary);
+    pkwRouteGen.startPopulatingThread();
+    bikeRouteGen.startPopulatingThread();
 
     // populate with some vehicles so simulation doesn't stop
     for (int i = 0; i < 5; i++) {
-      String routeId = randomRouteGenerator.fetchRandomRouteBlocking();
+      String routeId = pkwRouteGen.fetchRandomRouteBlocking();
       if (routeId != null) {
         Vehicle.add("start_" + i, routeId, "passenger");
       }
     }
 
+    AtomicLong totalVehicles = new AtomicLong(0);
+    Map<String, AtomicLong> activeVehiclesByType = new HashMap<>();
+    Map<String, String> vehicleIdToType = new HashMap<>();
+
     int vehicleId = 0;
     for (int seconds = SIMULATION_STEP_BEGINNING; seconds < SIMULATION_STEPS; seconds++) {
       Simulation.step();
-      int size = Vehicle.getLoadedIDList().size();
-      int expected = (int) expectedCars((double) seconds / SIMULATION_STEPS, 2000);
-
       String timeOfDay = String.format("%02d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60);
-      long start = System.currentTimeMillis();
-      if (seconds % 30 == 0 || Math.abs(size - expected) > 50) {
-        System.out.println(timeOfDay + ": " + size + "/" + expected + " cars");
+      long motorVehiclesOnRoad = activeVehiclesByType.computeIfAbsent("passenger", k -> new AtomicLong(0)).get();
+      long expectedMotorVehicles = (int) expectedNumber((double) seconds / SIMULATION_STEPS, 2000);
+      long bikeVehiclesOnRoad = activeVehiclesByType.computeIfAbsent("bicycle", k -> new AtomicLong(0)).get();
+      long expectedBikeVehicles = (int) expectedNumber((double) seconds / SIMULATION_STEPS, 1000);
+      if (seconds % 30 == 0) {
+        System.out.println(timeOfDay + ": " + motorVehiclesOnRoad + "/" + expectedMotorVehicles + " cars, " + bikeVehiclesOnRoad + "/" + expectedBikeVehicles + " bikes");
+      }
+
+      StringVector arrived = Simulation.getArrivedIDList();
+      for (String arrivedVehicleId : arrived) {
+        String type = vehicleIdToType.get(arrivedVehicleId);
+        if (type != null) {
+          activeVehiclesByType.computeIfAbsent(type, k -> new AtomicLong(1)).decrementAndGet();
+        }
+        totalVehicles.decrementAndGet();
+        vehicleIdToType.remove(arrivedVehicleId);
       }
 
       int added = 0;
-      while (size < expected && added < 20) {
-        String routeId = randomRouteGenerator.fetchRandomRouteBlocking();
+      while (motorVehiclesOnRoad < expectedMotorVehicles && added < 20) {
+        String routeId = pkwRouteGen.fetchRandomRouteBlocking();
         if (routeId == null) {
           continue;
         }
-        Vehicle.add("vehicle_" + vehicleId++, routeId, "passenger");
-        size++;
+        String vehID = "vehicle_passenger_" + vehicleId++;
+        String vehicleClass = "passenger";
+        Vehicle.add(vehID, routeId, vehicleClass);
+        motorVehiclesOnRoad++;
         added++;
+        totalVehicles.incrementAndGet();
+        activeVehiclesByType.computeIfAbsent(vehicleClass, k -> new AtomicLong(0)).incrementAndGet();
+        vehicleIdToType.put(vehID, vehicleClass);
+      }
+      while (bikeVehiclesOnRoad < expectedBikeVehicles && added < 5) {
+        String routeId = bikeRouteGen.fetchRandomRouteBlocking();
+        if (routeId == null) {
+          continue;
+        }
+        String vehID = "vehicle_bike_" + vehicleId++;
+        String vehicleClass = "bicycle";
+        Vehicle.add(vehID, routeId, vehicleClass);
+        bikeVehiclesOnRoad++;
+        added++;
+        totalVehicles.incrementAndGet();
+        activeVehiclesByType.computeIfAbsent(vehicleClass, k -> new AtomicLong(0)).incrementAndGet();
+        vehicleIdToType.put(vehID, vehicleClass);
       }
       try {
         Thread.sleep(1000 / SPEEDUP_FACTOR);
@@ -77,13 +118,13 @@ public class Main {
     Simulation.close();
   }
 
-  public static double expectedCars(
+  public static double expectedNumber(
     double linTime,
-    long maxCarsInPeak
+    long maxInPeak
   ) {
     double a = -5, b = -2.6, c = -0.1, d = 1.125, e = 0.01;
     double coeff = Math.max(Math.sin(b * Math.sin(a * linTime + d) + c), 0) + e;
-    return coeff * maxCarsInPeak;
+    return coeff * maxInPeak;
   }
 
   public static List<String> lanesFromEdge(String edgeID) {

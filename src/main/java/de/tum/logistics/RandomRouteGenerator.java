@@ -3,11 +3,13 @@ package de.tum.logistics;
 import org.eclipse.sumo.libtraci.*;
 
 import java.util.Deque;
+import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
 
 public final class RandomRouteGenerator {
   private final static AtomicLong generatorIdCounter = new AtomicLong(0);
@@ -48,7 +50,7 @@ public final class RandomRouteGenerator {
           generatedRoutes++;
         }
         try {
-          Thread.sleep(1000);
+          Thread.sleep(250);
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
@@ -57,7 +59,13 @@ public final class RandomRouteGenerator {
   }
 
   public String fetchRandomRouteBlocking() {
-    return availableRoutes.poll();
+    String take = availableRoutes.poll();
+    double availableFactor = (double) availableRoutes.size() / (requestedRoutes/3d);
+    double recycleFactor = Math.max(0, 1 - availableFactor);
+    if (take != null && uniformBelow(recycleFactor)) {
+      availableRoutes.add(take);
+    }
+    return take;
   }
 
   private void generateRouteFrom(String routeId, String vehicleType) {
@@ -69,7 +77,8 @@ public final class RandomRouteGenerator {
         continue;
       }
       Route.add(routeId, new StringVector(new String[]{fromEdge, toEdge}));
-      if (availableRoutes.size() % 100 == 0 && System.currentTimeMillis() - lastPopulationNotification > 2000) {
+      double populationFactor = (double) availableRoutes.size() / (requestedRoutes);
+      if (availableRoutes.size() % 100 == 0 && populationFactor < 0.3 && System.currentTimeMillis() - lastPopulationNotification > 2000) {
         System.out.println(availableRoutes.size() + "/" + requestedRoutes + " routes available");
         lastPopulationNotification = System.currentTimeMillis();
       }
@@ -78,8 +87,19 @@ public final class RandomRouteGenerator {
     throw new RuntimeException("Could not generate a route");
   }
 
-  private final static double FIXED_ENTRY_EDGE_PROBABILITY = 0.3;
-  private final static double FIXED_EXIT_EDGE_PROBABILITY = 0.3;
+  private final static Function<String, Double> FIXED_ENTRY_EDGE_PROBABILITY = vehicleType ->
+    switch (vehicleType) {
+      case "passenger" -> 0.3;
+      case "bicycle" -> 0.0;
+      default -> 0.1;
+  };
+
+  private final static Function<String, Double> FIXED_EXIT_EDGE_PROBABILITY = vehicleType ->
+    switch (vehicleType) {
+      case "passenger" -> 0.3;
+      case "bicycle" -> 0.0;
+      default -> 0.1;
+  };
 
   private final String[] CACHED_ENTRY_POSITIONS = {
     "283871244",
@@ -104,15 +124,7 @@ public final class RandomRouteGenerator {
   };
 
   private synchronized String randomEntryEdgeFor(String vehicleType) {
-    if (uniformBelow(FIXED_ENTRY_EDGE_PROBABILITY)) {
-      // special case
-//      if (CACHED_ENTRY_POSITIONS[0] == null) {
-//        // populate cache
-//        for (int i = 0; i < CACHED_ENTRY_POSITIONS.length; i++) {
-//          double[] coords = ENTRY_COORDINATES[i];
-//          CACHED_ENTRY_POSITIONS[i] = Simulation.convertRoad(coords[0], coords[1], true, vehicleType).getEdgeID();
-//        }
-//      }
+    if (uniformBelow(FIXED_ENTRY_EDGE_PROBABILITY.apply(vehicleType))) {
       int index = ThreadLocalRandom.current().nextInt(CACHED_ENTRY_POSITIONS.length);
       return CACHED_ENTRY_POSITIONS[index];
     } else {
@@ -121,19 +133,7 @@ public final class RandomRouteGenerator {
   }
 
   private synchronized String randomExitEdgeFor(String vehicleType) {
-    if (uniformBelow(FIXED_EXIT_EDGE_PROBABILITY)) {
-      // special case
-//      if (CACHED_EXIT_POSITIONS[0] == null) {
-//        // populate cache
-//        for (int i = 0; i < CACHED_EXIT_POSITIONS.length; i++) {
-//          double[] coords = EXIT_COORDINATES[i];
-//          try {
-//            CACHED_EXIT_POSITIONS[i] = Simulation.convertRoad(coords[0], coords[1], true, vehicleType).getEdgeID();
-//          } catch (Exception e) {
-//            throw new RuntimeException("Could not convert " + coords[0] + ", " + coords[1], e);
-//          }
-//        }
-//      }
+    if (uniformBelow(FIXED_EXIT_EDGE_PROBABILITY.apply(vehicleType))) {
       int index = ThreadLocalRandom.current().nextInt(CACHED_EXIT_POSITIONS.length);
       return CACHED_EXIT_POSITIONS[index];
     } else {
