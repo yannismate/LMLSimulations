@@ -88,7 +88,11 @@ public class Main {
         }
         String vehID = "vehicle_passenger_" + vehicleId++;
         String vehicleClass = "passenger";
-        Vehicle.add(vehID, routeId, vehicleClass);
+        try {
+          Vehicle.add(vehID, routeId, vehicleClass);
+        } catch (Exception tryAgain) {
+          continue;
+        }
         motorVehiclesOnRoad++;
         added++;
         totalVehicles.incrementAndGet();
@@ -102,7 +106,11 @@ public class Main {
         }
         String vehID = "vehicle_bike_" + vehicleId++;
         String vehicleClass = "bicycle";
-        Vehicle.add(vehID, routeId, vehicleClass);
+        try {
+          Vehicle.add(vehID, routeId, vehicleClass);
+        } catch (Exception tryAgain) {
+          continue;
+        }
         bikeVehiclesOnRoad++;
         added++;
         totalVehicles.incrementAndGet();

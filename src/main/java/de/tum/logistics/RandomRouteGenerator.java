@@ -70,8 +70,8 @@ public final class RandomRouteGenerator {
 
   private void generateRouteFrom(String routeId, String vehicleType) {
     for (int attempts = 0; attempts < 100; attempts++) {
-      String fromEdge = randomEntryEdgeFor(vehicleType);//randomEdgeFor(vehicleType);
-      String toEdge = randomExitEdgeFor(vehicleType);//randomEdgeFor(vehicleType);
+      String fromEdge = randomEntryEdgeFor(vehicleType);
+      String toEdge = randomExitEdgeFor(vehicleType);
       TraCIStage route = Simulation.findRoute(fromEdge, toEdge, vehicleType);
       if (route.getLength() <= 1.0) {
         continue;
