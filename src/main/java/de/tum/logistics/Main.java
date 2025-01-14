@@ -9,13 +9,11 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Main {
-
-  public static final int SIMULATION_STEPS = 4 * 60 * 60;
-  public static final int SPEEDUP_FACTOR = 20;
+  public static final int SIMULATION_STEPS = 24 * 60 * 60;
+  public static final int SPEEDUP_FACTOR = 60;
+  public static final int SIMULATION_STEP_BEGINNING = 5 * 60 * 60;
   private static final File resourceFolder = new File("src/main/resources");
-
   public static TraCIPosition fromBoundary, toBoundary;
-
 
   public static void main(String[] args) {
     System.loadLibrary("libtracijni");
@@ -37,30 +35,38 @@ public class Main {
 
     VehicleType.copy("DEFAULT_VEHTYPE", "passenger");
 
-    Random random = new Random();
+    RandomRouteGenerator randomRouteGenerator = new RandomRouteGenerator("passenger", 10000, fromBoundary, toBoundary);
+    randomRouteGenerator.startPopulatingThread();
 
-    for (int i = 0; i < 100; i++) {
-      System.out.println("Generating route route" + i + "...");
-      String fromEdge = allowedEdges.stream().skip(random.nextInt(allowedEdges.size())).findFirst().get();
-      String toEdge = allowedEdges.stream().skip(random.nextInt(allowedEdges.size())).findFirst().get();
-
-      TraCIStage route = Simulation.findRoute(fromEdge, toEdge, "passenger");
-      if (route.getLength() <= 1.0) {
-        i--;
-        continue;
+    // populate with some vehicles so simulation doesn't stop
+    for (int i = 0; i < 5; i++) {
+      String routeId = randomRouteGenerator.fetchRandomRouteBlocking();
+      if (routeId != null) {
+        Vehicle.add("start_" + i, routeId, "passenger");
       }
-
-      System.out.println("From edge: " + fromEdge);
-      System.out.println("To edge: " + toEdge);
-
-      Route.add("route" + i, new StringVector(new String[]{fromEdge, toEdge}));
-      Vehicle.add("car" + i, "route" + i, "passenger");
     }
 
-    for (int i = 0; i < SIMULATION_STEPS; i++) {
+    int vehicleId = 0;
+    for (int seconds = SIMULATION_STEP_BEGINNING; seconds < SIMULATION_STEPS; seconds++) {
       Simulation.step();
-      if (i == 3000) {
-        System.out.println("BREAK");
+      int size = Vehicle.getLoadedIDList().size();
+      int expected = (int) expectedCars((double) seconds / SIMULATION_STEPS, 2000);
+
+      String timeOfDay = String.format("%02d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60);
+      long start = System.currentTimeMillis();
+      if (seconds % 30 == 0 || Math.abs(size - expected) > 50) {
+        System.out.println(timeOfDay + ": " + size + "/" + expected + " cars");
+      }
+
+      int added = 0;
+      while (size < expected && added < 20) {
+        String routeId = randomRouteGenerator.fetchRandomRouteBlocking();
+        if (routeId == null) {
+          continue;
+        }
+        Vehicle.add("vehicle_" + vehicleId++, routeId, "passenger");
+        size++;
+        added++;
       }
       try {
         Thread.sleep(1000 / SPEEDUP_FACTOR);
@@ -69,6 +75,15 @@ public class Main {
       }
     }
     Simulation.close();
+  }
+
+  public static double expectedCars(
+    double linTime,
+    long maxCarsInPeak
+  ) {
+    double a = -5, b = -2.6, c = -0.1, d = 1.125, e = 0.01;
+    double coeff = Math.max(Math.sin(b * Math.sin(a * linTime + d) + c), 0) + e;
+    return coeff * maxCarsInPeak;
   }
 
   public static List<String> lanesFromEdge(String edgeID) {
