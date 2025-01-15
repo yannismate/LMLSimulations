@@ -15,6 +15,17 @@ public class Main {
   public static final int SIMULATION_STEP_BEGINNING = 5 * 60 * 60;
   public static final File RESOURCE_FOLDER = new File("src/main/resources");
   public static TraCIPosition fromBoundary, toBoundary;
+  public static List<LogisticVehicle> logisticVehicles;
+
+  static {
+    List<LogisticVehicle> logisticVehicles = new ArrayList<>();
+    try {
+      logisticVehicles = LogisticVehicle.generateLogisticVehiclesFrom(new File(RESOURCE_FOLDER, "routes.txt"));
+    } catch (Throwable e) {
+      System.out.println("Failed to load logistic vehicles from file, please bake the problem first");
+    }
+    Main.logisticVehicles = logisticVehicles;
+  }
 
   public static void main(String[] args) {
     System.loadLibrary("libtracijni");
@@ -54,9 +65,9 @@ public class Main {
       }
     }
 
-    for (int i = 0; i < 1; i++) {
-      Vehicle.add("delivery" + i, "delivery" + i, "passenger");
-    }
+//    for (int i = 0; i < 1; i++) {
+//      Vehicle.add("delivery_v_" + i, "delivery" + i, "passenger");
+//    }
 
     AtomicLong totalVehicles = new AtomicLong(0);
     Map<String, AtomicLong> activeVehiclesByType = new HashMap<>();
@@ -73,12 +84,16 @@ public class Main {
       if (seconds % 30 == 0) {
         System.out.println(timeOfDay + ": " + motorVehiclesOnRoad + "/" + expectedMotorVehicles + " cars, " + bikeVehiclesOnRoad + "/" + expectedBikeVehicles + " bikes");
       }
+      logisticVehicles.forEach(LogisticVehicle::tick);
       StringVector arrived = Simulation.getArrivedIDList();
       for (String arrivedVehicleId : arrived) {
         String type = vehicleIdToType.get(arrivedVehicleId);
         if (type != null) {
           activeVehiclesByType.computeIfAbsent(type, k -> new AtomicLong(1)).decrementAndGet();
         }
+        logisticVehicles.forEach(logisticVehicle ->
+          logisticVehicle.checkDeletion(arrivedVehicleId)
+        );
         totalVehicles.decrementAndGet();
         vehicleIdToType.remove(arrivedVehicleId);
       }

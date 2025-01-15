@@ -11,7 +11,6 @@ import de.tum.logistics.osm.OsmNode;
 import de.tum.logistics.problems.TruckDeliveryProblem;
 
 public class ProblemBaking {
-
   public static void main(String[] args) {
     System.loadLibrary("libtracijni");
     File netFile = new File(Main.RESOURCE_FOLDER, "osm.net.xml.gz");
@@ -21,9 +20,8 @@ public class ProblemBaking {
     TruckDeliveryProblem problem = new TruckDeliveryProblem();
     problem.init(possibleLocations);
     problem.solve();
-    problem.writeRouteXML(new File(Main.RESOURCE_FOLDER, "routes.xml"));
+    problem.writeRoutes(new File(Main.RESOURCE_FOLDER, "routes.xml"));
     Simulation.close("Done!");
     System.exit(0);
   }
-
 }

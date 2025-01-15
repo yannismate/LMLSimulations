@@ -111,19 +111,15 @@ public class TruckDeliveryProblem {
     System.out.println("Solution found after " + Duration.between(timeBeforeSolve, Instant.now()).toSeconds() + " seconds, skipped " + solution.getUnassignedJobs().size() + " jobs");
   }
 
-  public void writeRouteXML(File targetFile) {
+  public void writeRoutes(File targetFile) {
     if (solution == null) {
       throw new IllegalStateException("No solution available");
     }
-
     List<Route> routes = new ArrayList<>();
-
     System.out.println("Writing routes to " + targetFile.getAbsolutePath());
-
     Random rand = new Random();
     int numRoute = 0;
     int totalVehicleCount = solution.getRoutes().size();
-
     for (VehicleRoute vhRoute : solution.getRoutes()) {
       System.out.println("Vehicle " + (numRoute+1) + " of " + totalVehicleCount + " has " + vhRoute.getTourActivities().getJobs().size() + " stops");
       List<Stop> stops = new ArrayList<>();
@@ -135,7 +131,11 @@ public class TruckDeliveryProblem {
         edges.add(roadPos.getEdgeID());
         // 90% chance for "parking" (allowing other vehicles to pass)
         // TODO: normal distribution for stop time
-        stops.add(new Stop(roadPos.getEdgeID(), roadPos.getPos(), 60+20*(job.getSize().get(0)-1), rand.nextDouble() <= 0.9));
+        int mue = 60 + 20 * (job.getSize().get(0) - 1);
+        int sigma = 10;
+        double stopTime = rand.nextGaussian() * sigma + mue;
+        stopTime = Math.max(0, (int)stopTime);
+        stops.add(new Stop(roadPos.getEdgeID(), roadPos.getPos(), stopTime, rand.nextDouble() <= 0.9));
       }
       edges.add(ENTRY_EDGE);
       Route route = new Route("delivery" + numRoute, edges, stops);
@@ -145,6 +145,7 @@ public class TruckDeliveryProblem {
 
     System.out.println("Done computing routes, writing to file...");
 
+    // write to file A
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(targetFile))) {
       writer.write("<routes>");
       writer.newLine();
@@ -153,6 +154,17 @@ public class TruckDeliveryProblem {
         writer.newLine();
       }
       writer.write("</routes>");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    // write to file B
+    File targetFile2 = new File(targetFile.getAbsolutePath().replace(".xml", ".txt"));
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(targetFile2))) {
+      writer.write(routes.size() + "\n");
+      for (Route route : routes) {
+        route.serialize(writer);
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }
