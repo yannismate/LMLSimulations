@@ -18,6 +18,7 @@ dependencies {
     implementation("org.joml", "joml", "1.10.8")
     implementation("com.graphhopper:jsprit-core:1.8")
     implementation("com.graphhopper:jsprit-analysis:1.8")
+    implementation("org.apache.commons", "commons-math3", "3.6.1")
 }
 
 tasks.test {

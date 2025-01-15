@@ -1,21 +1,5 @@
 package de.tum.logistics.problems;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.Executors;
-
-import org.eclipse.sumo.libtraci.Simulation;
-import org.eclipse.sumo.libtraci.TraCIRoadPosition;
-
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
 import com.graphhopper.jsprit.core.algorithm.listener.IterationEndsListener;
@@ -30,11 +14,22 @@ import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
 import com.graphhopper.jsprit.core.util.Coordinate;
 import com.graphhopper.jsprit.core.util.Solutions;
-
 import de.tum.logistics.osm.OsmNode;
 import de.tum.logistics.problems.serialization.Route;
 import de.tum.logistics.problems.serialization.Stop;
+import org.eclipse.sumo.libtraci.Simulation;
+import org.eclipse.sumo.libtraci.TraCIRoadPosition;
 import org.eclipse.sumo.libtraci.TraCIStage;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TruckDeliveryProblem {
 
@@ -104,10 +99,12 @@ public class TruckDeliveryProblem {
     }
     System.out.println("Solving vehicle routing problem for " + NUM_PARCELS +" deliveries in " + vrp.getJobs().size() + " stops...");
     Instant timeBeforeSolve = Instant.now();
+    int threads = Runtime.getRuntime().availableProcessors();
+    System.out.println("Using " + threads + " threads for solving");
     VehicleRoutingAlgorithm algorithm = Jsprit.Builder.newInstance(vrp).setExecutorService(
-      Executors.newFixedThreadPool(12), 12
+      Executors.newFixedThreadPool(threads), threads
     ).buildAlgorithm();
-    algorithm.setMaxIterations(100_000);
+    algorithm.setMaxIterations(1_000);
     algorithm.addListener((IterationEndsListener) (i, problem, solutions) -> System.out.println("Iteration " + i + " finished, best solution has cost " + Solutions.bestOf(solutions).getCost()));
     solution = Solutions.bestOf(algorithm.searchSolutions());
     System.out.println("Solution found after " + Duration.between(timeBeforeSolve, Instant.now()).toSeconds() + " seconds, skipped " + solution.getUnassignedJobs().size() + " jobs");
@@ -148,8 +145,21 @@ public class TruckDeliveryProblem {
 
         edges.add(roadPos.getEdgeID());
         // 90% chance for "parking" (allowing other vehicles to pass)
-        // TODO: normal distribution for stop time
-        stops.add(new Stop(roadPos.getEdgeID(), roadPos.getPos(), 60+20*(job.getSize().get(0)-1), rand.nextDouble() <= 0.8));
+
+
+        // https://medium.com/the-post-grad-survival-guide/to-jeff-bezos-from-an-amazon-delivery-driver-5ccf39d5df7d
+        int packets = job.getSize().get(0);
+        boolean willBeHome = ThreadLocalRandom.current().nextDouble() <= 0.95;
+        int findParkingTime = (int) (ThreadLocalRandom.current().nextExponential() * 12);// 0-60 seconds
+        int approachTime = (int) (ThreadLocalRandom.current().nextGaussian(30, 10));// 20-40 seconds
+        int singleStairTime = (int) (ThreadLocalRandom.current().nextGaussian(15 + packets*2.5d, 5));// 15-25 seconds
+        int stairs = ThreadLocalRandom.current().nextDouble() < 0.4 ? 0 : (ThreadLocalRandom.current().nextInt(1, 6));
+        int stairTime = (int) (stairs * singleStairTime);
+        int waitingTime = (int) (ThreadLocalRandom.current().nextGaussian(willBeHome ? 20 : 120, 10));// 20-40 seconds
+        int loadUnloadTime = (int) (ThreadLocalRandom.current().nextGaussian(60 + packets*20, 20));// 40-80 seconds
+        int totalDuration = findParkingTime + 2 * approachTime + 2 * stairTime + waitingTime + loadUnloadTime;
+
+        stops.add(new Stop(roadPos.getEdgeID(), roadPos.getPos(), totalDuration, rand.nextDouble() <= 0.8));
       }
       edges.add(EXIT_EDGE);
       Route route = new Route("delivery" + numRoute, edges, stops);
@@ -161,6 +171,8 @@ public class TruckDeliveryProblem {
 
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(targetFile))) {
       writer.write("<routes>");
+      writer.newLine();
+      writer.write("    <vType id=\"delivery\" vClass=\"delivery\" color=\"#547389\"/>");
       writer.newLine();
       for (Route route : routes) {
         route.writeXML(writer);
