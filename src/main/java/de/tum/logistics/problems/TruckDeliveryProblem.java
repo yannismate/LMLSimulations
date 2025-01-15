@@ -34,12 +34,14 @@ import com.graphhopper.jsprit.core.util.Solutions;
 import de.tum.logistics.osm.OsmNode;
 import de.tum.logistics.problems.serialization.Route;
 import de.tum.logistics.problems.serialization.Stop;
+import org.eclipse.sumo.libtraci.TraCIStage;
 
 public class TruckDeliveryProblem {
 
   private final static int VEHICLE_CAPACITY = 250;
   private final static int NUM_PARCELS = 15_000;
   private final static String ENTRY_EDGE = "265616622#0";
+  private final static String EXIT_EDGE = "315225707";
 
   private VehicleRoutingProblem vrp;
   private VehicleRoutingProblemSolution solution;
@@ -103,9 +105,9 @@ public class TruckDeliveryProblem {
     System.out.println("Solving vehicle routing problem for " + NUM_PARCELS +" deliveries in " + vrp.getJobs().size() + " stops...");
     Instant timeBeforeSolve = Instant.now();
     VehicleRoutingAlgorithm algorithm = Jsprit.Builder.newInstance(vrp).setExecutorService(
-      Executors.newFixedThreadPool(4), 4
+      Executors.newFixedThreadPool(12), 12
     ).buildAlgorithm();
-    algorithm.setMaxIterations(100);
+    algorithm.setMaxIterations(100_000);
     algorithm.addListener((IterationEndsListener) (i, problem, solutions) -> System.out.println("Iteration " + i + " finished, best solution has cost " + Solutions.bestOf(solutions).getCost()));
     solution = Solutions.bestOf(algorithm.searchSolutions());
     System.out.println("Solution found after " + Duration.between(timeBeforeSolve, Instant.now()).toSeconds() + " seconds, skipped " + solution.getUnassignedJobs().size() + " jobs");
@@ -132,12 +134,24 @@ public class TruckDeliveryProblem {
       for (Job job : vhRoute.getTourActivities().getJobs()) {
         Coordinate stopCoords = job.getActivities().getFirst().getLocation().getCoordinate();
         TraCIRoadPosition roadPos = Simulation.convertRoad(stopCoords.getX(), stopCoords.getY(), true, "passenger");
+
+        TraCIStage hubToPointRoute = Simulation.findRoute(ENTRY_EDGE, roadPos.getEdgeID());
+        if (hubToPointRoute.getCost() == 0.0) {
+          System.out.println("Vehicle " + (numRoute + 1) + " has unroutable stop from entry edge, skipping...");
+          continue;
+        }
+        TraCIStage pointToHubRoute = Simulation.findRoute(roadPos.getEdgeID(), EXIT_EDGE);
+        if (pointToHubRoute.getCost() == 0.0) {
+          System.out.println("Vehicle " + (numRoute + 1) + " has unroutable stop to exit edge, skipping...");
+          continue;
+        }
+
         edges.add(roadPos.getEdgeID());
         // 90% chance for "parking" (allowing other vehicles to pass)
         // TODO: normal distribution for stop time
-        stops.add(new Stop(roadPos.getEdgeID(), roadPos.getPos(), 60+20*(job.getSize().get(0)-1), rand.nextDouble() <= 0.9));
+        stops.add(new Stop(roadPos.getEdgeID(), roadPos.getPos(), 60+20*(job.getSize().get(0)-1), rand.nextDouble() <= 0.8));
       }
-      edges.add(ENTRY_EDGE);
+      edges.add(EXIT_EDGE);
       Route route = new Route("delivery" + numRoute, edges, stops);
       routes.add(route);
       numRoute++;

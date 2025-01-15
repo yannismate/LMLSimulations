@@ -54,10 +54,6 @@ public class Main {
       }
     }
 
-    for (int i = 0; i < 1; i++) {
-      Vehicle.add("delivery" + i, "delivery" + i, "passenger");
-    }
-
     AtomicLong totalVehicles = new AtomicLong(0);
     Map<String, AtomicLong> activeVehiclesByType = new HashMap<>();
     Map<String, String> vehicleIdToType = new HashMap<>();
