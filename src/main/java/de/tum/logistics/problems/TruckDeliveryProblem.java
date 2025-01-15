@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.Executors;
 
 import org.eclipse.sumo.libtraci.Simulation;
 import org.eclipse.sumo.libtraci.TraCIRoadPosition;
@@ -101,7 +102,9 @@ public class TruckDeliveryProblem {
     }
     System.out.println("Solving vehicle routing problem for " + NUM_PARCELS +" deliveries in " + vrp.getJobs().size() + " stops...");
     Instant timeBeforeSolve = Instant.now();
-    VehicleRoutingAlgorithm algorithm = Jsprit.createAlgorithm(vrp);
+    VehicleRoutingAlgorithm algorithm = Jsprit.Builder.newInstance(vrp).setExecutorService(
+      Executors.newFixedThreadPool(4), 4
+    ).buildAlgorithm();
     algorithm.setMaxIterations(100);
     algorithm.addListener((IterationEndsListener) (i, problem, solutions) -> System.out.println("Iteration " + i + " finished, best solution has cost " + Solutions.bestOf(solutions).getCost()));
     solution = Solutions.bestOf(algorithm.searchSolutions());

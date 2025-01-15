@@ -73,7 +73,6 @@ public class Main {
       if (seconds % 30 == 0) {
         System.out.println(timeOfDay + ": " + motorVehiclesOnRoad + "/" + expectedMotorVehicles + " cars, " + bikeVehiclesOnRoad + "/" + expectedBikeVehicles + " bikes");
       }
-
       StringVector arrived = Simulation.getArrivedIDList();
       for (String arrivedVehicleId : arrived) {
         String type = vehicleIdToType.get(arrivedVehicleId);
