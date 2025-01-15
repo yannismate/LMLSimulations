@@ -18,8 +18,8 @@ public class Main {
 
   public static void main(String[] args) {
     System.loadLibrary("libtracijni");
-    File netFile = new File(RESOURCE_FOLDER, "osm.net.xml.gz");
-    Simulation.start(new StringVector(new String[]{"sumo-gui", "-n", netFile.getAbsolutePath()}));
+    File configFile = new File(RESOURCE_FOLDER, "the.sumocfg");
+    Simulation.start(new StringVector(new String[]{"sumo-gui", "-c", configFile.getAbsolutePath()}));
     TraCPositionVector boundary = Simulation.getNetBoundary().getValue();
     fromBoundary = boundary.get(0);
     toBoundary = boundary.get(1);
@@ -54,6 +54,10 @@ public class Main {
       }
     }
 
+    for (int i = 0; i < 1; i++) {
+      Vehicle.add("delivery" + i, "delivery" + i, "passenger");
+    }
+
     AtomicLong totalVehicles = new AtomicLong(0);
     Map<String, AtomicLong> activeVehiclesByType = new HashMap<>();
     Map<String, String> vehicleIdToType = new HashMap<>();
@@ -63,7 +67,7 @@ public class Main {
       Simulation.step();
       String timeOfDay = String.format("%02d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60);
       long motorVehiclesOnRoad = activeVehiclesByType.computeIfAbsent("passenger", k -> new AtomicLong(0)).get();
-      long expectedMotorVehicles = (int) expectedNumber((double) seconds / SIMULATION_STEPS, 2000);
+      long expectedMotorVehicles = (int) expectedNumber((double) seconds / SIMULATION_STEPS, 3000);
       long bikeVehiclesOnRoad = activeVehiclesByType.computeIfAbsent("bicycle", k -> new AtomicLong(0)).get();
       long expectedBikeVehicles = (int) expectedNumber((double) seconds / SIMULATION_STEPS, 1000);
       if (seconds % 30 == 0) {
