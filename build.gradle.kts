@@ -16,6 +16,8 @@ dependencies {
     implementation("org.eclipse.sumo:libtraci:1.21.0")
     implementation("com.google.code.gson:gson:2.11.0")
     implementation("org.joml", "joml", "1.10.8")
+    implementation("com.graphhopper:jsprit-core:1.8")
+    implementation("com.graphhopper:jsprit-analysis:1.8")
 }
 
 tasks.test {

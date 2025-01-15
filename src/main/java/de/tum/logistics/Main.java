@@ -13,12 +13,12 @@ public class Main {
   public static final int SIMULATION_STEPS = 24 * 60 * 60;
   public static final int SPEEDUP_FACTOR = 60;
   public static final int SIMULATION_STEP_BEGINNING = 5 * 60 * 60;
-  private static final File resourceFolder = new File("src/main/resources");
+  public static final File RESOURCE_FOLDER = new File("src/main/resources");
   public static TraCIPosition fromBoundary, toBoundary;
 
   public static void main(String[] args) {
     System.loadLibrary("libtracijni");
-    File netFile = new File(resourceFolder, "osm.net.xml.gz");
+    File netFile = new File(RESOURCE_FOLDER, "osm.net.xml.gz");
     Simulation.start(new StringVector(new String[]{"sumo-gui", "-n", netFile.getAbsolutePath()}));
     TraCPositionVector boundary = Simulation.getNetBoundary().getValue();
     fromBoundary = boundary.get(0);
