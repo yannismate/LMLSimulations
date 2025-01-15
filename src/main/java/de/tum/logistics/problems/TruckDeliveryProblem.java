@@ -17,6 +17,7 @@ import org.eclipse.sumo.libtraci.TraCIRoadPosition;
 
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.listener.IterationEndsListener;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem.FleetSize;
@@ -101,7 +102,8 @@ public class TruckDeliveryProblem {
     System.out.println("Solving vehicle routing problem for " + NUM_PARCELS +" deliveries in " + vrp.getJobs().size() + " stops...");
     Instant timeBeforeSolve = Instant.now();
     VehicleRoutingAlgorithm algorithm = Jsprit.createAlgorithm(vrp);
-    algorithm.setMaxIterations(5);
+    algorithm.setMaxIterations(100);
+    algorithm.addListener((IterationEndsListener) (i, problem, solutions) -> System.out.println("Iteration " + i + " finished, best solution has cost " + Solutions.bestOf(solutions).getCost()));
     solution = Solutions.bestOf(algorithm.searchSolutions());
     System.out.println("Solution found after " + Duration.between(timeBeforeSolve, Instant.now()).toSeconds() + " seconds, skipped " + solution.getUnassignedJobs().size() + " jobs");
   }
