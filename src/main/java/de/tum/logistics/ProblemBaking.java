@@ -22,6 +22,8 @@ public class ProblemBaking {
     problem.init(possibleLocations);
     problem.solve();
     problem.writeRouteXML(new File(Main.RESOURCE_FOLDER, "routes.xml"));
+    Simulation.close("Done!");
+    System.exit(0);
   }
 
 }

@@ -118,9 +118,14 @@ public class TruckDeliveryProblem {
 
     List<Route> routes = new ArrayList<>();
 
+    System.out.println("Writing routes to " + targetFile.getAbsolutePath());
+
     Random rand = new Random();
     int numRoute = 0;
+    int totalVehicleCount = solution.getRoutes().size();
+
     for (VehicleRoute vhRoute : solution.getRoutes()) {
+      System.out.println("Vehicle " + (numRoute+1) + " of " + totalVehicleCount + " has " + vhRoute.getTourActivities().getJobs().size() + " stops");
       List<Stop> stops = new ArrayList<>();
       List<String> edges = new ArrayList<>();
       edges.add(ENTRY_EDGE);
@@ -128,7 +133,6 @@ public class TruckDeliveryProblem {
         Coordinate stopCoords = job.getActivities().getFirst().getLocation().getCoordinate();
         TraCIRoadPosition roadPos = Simulation.convertRoad(stopCoords.getX(), stopCoords.getY(), true, "passenger");
         edges.add(roadPos.getEdgeID());
-
         // 90% chance for "parking" (allowing other vehicles to pass)
         // TODO: normal distribution for stop time
         stops.add(new Stop(roadPos.getEdgeID(), roadPos.getPos(), 60+20*(job.getSize().get(0)-1), rand.nextDouble() <= 0.9));
@@ -138,6 +142,8 @@ public class TruckDeliveryProblem {
       routes.add(route);
       numRoute++;
     }
+
+    System.out.println("Done computing routes, writing to file...");
 
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(targetFile))) {
       writer.write("<routes>");
@@ -150,6 +156,8 @@ public class TruckDeliveryProblem {
     } catch (IOException e) {
       e.printStackTrace();
     }
+
+    System.out.println("Done writing routes to " + targetFile.getAbsolutePath());
   }
 
   public Map<OsmNode, Integer> clusterDemand(Map<OsmNode, Integer> demandMap) {
