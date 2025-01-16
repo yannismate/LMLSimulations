@@ -32,8 +32,8 @@ public class ProblemBaking {
       })
       .filter(d -> !d.nodes().isEmpty())
       .toList();
-
     routableCheck.close();
+    System.out.println(depotNodes.stream().mapToInt(d -> d.nodes().size()).sum() + " addresses are routable by bike.");
 
     MicroHubDeliveryProblem problem = new MicroHubDeliveryProblem();
     problem.init(15000, depotNodes);

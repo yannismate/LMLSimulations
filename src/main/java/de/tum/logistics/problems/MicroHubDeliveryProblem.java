@@ -41,14 +41,14 @@ import me.tongfei.progressbar.ProgressBarBuilder;
 
 public class MicroHubDeliveryProblem {
 
-  private static final double OVERCAPACITY_FACTOR = 1.3;
+  private static final double OVERCAPACITY_FACTOR = 1.4;
   private static final int CARGO_BIKE_CAPACITY = 40;
   private static final int ITERATIONS = 3000;
 
   private List<VehicleRoutingProblem> problems = new ArrayList<>();
   private List<VehicleRoutingProblemSolution> solutions = new ArrayList<>();
 
-  public void init(int numParcels, List<DepotNode> hubs) {
+  public void init(int totalNumParcels, List<DepotNode> hubs) {
     int totalAddresses = hubs.stream().map(d -> d.nodes().size()).reduce(0, Integer::sum);
 
     for (DepotNode hub : hubs) {
@@ -60,8 +60,8 @@ public class MicroHubDeliveryProblem {
 
       vrpBuilder.setFleetSize(VehicleRoutingProblem.FleetSize.FINITE);
 
-      int parcels = (int) Math.round((double)numParcels * ((double)hub.nodes().size() / (double)totalAddresses));
-      int numBikes = (int) Math.ceil(((double)parcels / (double)CARGO_BIKE_CAPACITY) * (double)OVERCAPACITY_FACTOR);
+      int parcels = (int) Math.round((double)totalNumParcels * ((double)hub.nodes().size() / (double)totalAddresses));
+      int numBikes = (int) Math.ceil(((double)parcels / (double)CARGO_BIKE_CAPACITY) * OVERCAPACITY_FACTOR);
       System.out.println("Using " + numBikes + " bikes for " + parcels + " parcels at " + hub.nodes().size() + " possible addresses");
       for (int i = 0; i < numBikes; i++) {
         VehicleImpl cargoBike = VehicleImpl.Builder.newInstance("cargoBike" + i)
@@ -77,7 +77,7 @@ public class MicroHubDeliveryProblem {
       Map<OsmNode, Integer> demandMap = new HashMap<>();
       Random rand = new Random();
 
-      for (int i = 0; i < numParcels; i++) {
+      for (int i = 0; i < parcels; i++) {
         OsmNode location = hub.nodes().get(rand.nextInt(hub.nodes().size()));
         demandMap.put(location, demandMap.getOrDefault(location, 0) + 1);
       }
@@ -95,9 +95,6 @@ public class MicroHubDeliveryProblem {
         vrpBuilder.addJob(delivery);
       }
 
-      GraphBasedRoutingCost graphBasedRoutingCost = new GraphBasedRoutingCost("bicycle");
-      graphBasedRoutingCost.setup(demandMap.keySet().stream().map(o -> o.searchNextRoadEdgeFor("bicycle")).toList());
-      vrpBuilder.setRoutingCost(graphBasedRoutingCost);
       problems.add(vrpBuilder.build());
     }
 
@@ -125,7 +122,7 @@ public class MicroHubDeliveryProblem {
 
       VehicleRoutingProblemSolution solution = Solutions.bestOf(algorithm.searchSolutions());
 
-      System.out.println("");
+      System.out.println();
       System.out.println("Solution found after " + Duration.between(timeBeforeSolve, Instant.now()).toSeconds()
           + " seconds, skipped " + solution.getUnassignedJobs().size() + " jobs");
       solutions.add(solution);
