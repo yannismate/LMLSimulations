@@ -24,7 +24,7 @@ public record Route(String id, List<String> edges, List<Stop> stops) {
   }
 
   public void writeXML(BufferedWriter writer, String carrierName) throws IOException {
-    writer.write("    <trip id=\"" + id + "\" type=\"delivery_"+carrierName+"\" from=\"" + edges.getFirst() + "\" to=\"" + edges.getLast() + "\" depart=\"01:00:00\">");
+    writer.write("    <trip id=\"" + id + "\" type=\"delivery_"+carrierName+"\" from=\"" + edges.getFirst() + "\" to=\"" + edges.getLast() + "\" depart=\"00:05:00\">");
     writer.newLine();
     for (Stop stop : stops) {
       stop.writeXML(writer);
