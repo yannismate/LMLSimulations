@@ -1,5 +1,8 @@
 <routes>
-    <vType id="delivery_bike_monopoly" vClass="bicycle" color="#FFFF00"/>
+    <vType id="delivery_bike_monopoly" vClass="bicycle" color="#FFFF00">
+        <param key="has.tripinfo.device" value="true"/>
+        <param key="has.rerouting.device" value="true"/>
+    </vType>
     <trip id="delivery_monopoly_0" type="delivery_bike_monopoly" from="-146789788#1" to="-146789788#1" depart="01:00:00">
         <stop edge="161226533#6" endPos="79.59574725134796" duration="258.0" parking="true"/>
         <stop edge="-7390904#1" endPos="59.63290806761671" duration="162.0" parking="true"/>

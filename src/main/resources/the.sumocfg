@@ -7,6 +7,11 @@
         <additional-files value="osm.poly.xml.gz"/>
     </input>
 
+    <output>
+        <statistic-output value="statistics_output.xml"/>
+        <tripinfo-output value="trips_output.xml"/>
+    </output>
+
     <processing>
         <ignore-route-errors value="true"/>
         <tls.actuated.jam-threshold value="30"/>

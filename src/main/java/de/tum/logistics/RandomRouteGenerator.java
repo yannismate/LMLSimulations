@@ -3,9 +3,6 @@ package de.tum.logistics;
 import org.eclipse.sumo.libtraci.*;
 
 import java.util.Deque;
-import java.util.Set;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicLong;
@@ -15,6 +12,7 @@ public final class RandomRouteGenerator {
   private final static AtomicLong generatorIdCounter = new AtomicLong(0);
   private final long generatorId = generatorIdCounter.getAndIncrement();
   private final String vehicleType;
+  private final String vehicleClass;
   private final int requestedRoutes;
   private final Deque<String> availableRoutes = new LinkedBlockingDeque<>();
   private final double fromX, fromY, toX, toY;
@@ -24,11 +22,13 @@ public final class RandomRouteGenerator {
 
   public RandomRouteGenerator(
     String vehicleType,
+    String vehicleClass,
     int requestedRouteBuffer,
     TraCIPosition fromBoundary,
     TraCIPosition toBoundary
   ) {
     this.vehicleType = vehicleType;
+    this.vehicleClass = vehicleClass;
     this.requestedRoutes = requestedRouteBuffer;
     this.fromX = fromBoundary.getX();
     this.fromY = fromBoundary.getY();
@@ -38,11 +38,11 @@ public final class RandomRouteGenerator {
 
   public void startPopulatingThread() {
     new Thread(() -> {
-      while (true) {
+      while (Simulation.isLoaded()) {
         while (availableRoutes.size() < requestedRoutes) {
           int routeNum = generatedRoutes;
           String routeId = "route_" + generatorId + "_" + routeNum;
-          generateRouteFrom(routeId, vehicleType);
+          generateRouteFrom(routeId, vehicleType, vehicleClass);
           availableRoutes.add(routeId);
           generatedRoutes++;
         }
@@ -65,10 +65,10 @@ public final class RandomRouteGenerator {
     return take;
   }
 
-  private void generateRouteFrom(String routeId, String vehicleType) {
+  private void generateRouteFrom(String routeId, String vehicleType, String vehicleClass) {
     for (int attempts = 0; attempts < 100; attempts++) {
-      String fromEdge = randomEntryEdgeFor(vehicleType);
-      String toEdge = randomExitEdgeFor(vehicleType);
+      String fromEdge = randomEntryEdgeFor(vehicleClass);
+      String toEdge = randomExitEdgeFor(vehicleClass);
       TraCIStage route = Simulation.findRoute(fromEdge, toEdge, vehicleType);
       if (route.getLength() <= 1.0) {
         continue;
@@ -76,7 +76,7 @@ public final class RandomRouteGenerator {
       Route.add(routeId, new StringVector(new String[]{fromEdge, toEdge}));
       double populationFactor = (double) availableRoutes.size() / (requestedRoutes);
       if (availableRoutes.size() % 100 == 0 && populationFactor < 0.3 && System.currentTimeMillis() - lastPopulationNotification > 2000) {
-        System.out.println(availableRoutes.size() + "/" + requestedRoutes + " routes available");
+        // System.out.println(availableRoutes.size() + "/" + requestedRoutes + " routes available");
         lastPopulationNotification = System.currentTimeMillis();
       }
       return;
@@ -120,21 +120,21 @@ public final class RandomRouteGenerator {
     "429424687"
   };
 
-  private synchronized String randomEntryEdgeFor(String vehicleType) {
-    if (uniformBelow(FIXED_ENTRY_EDGE_PROBABILITY.apply(vehicleType))) {
+  private synchronized String randomEntryEdgeFor(String vehicleClass) {
+    if (uniformBelow(FIXED_ENTRY_EDGE_PROBABILITY.apply(vehicleClass))) {
       int index = ThreadLocalRandom.current().nextInt(CACHED_ENTRY_POSITIONS.length);
       return CACHED_ENTRY_POSITIONS[index];
     } else {
-      return randomEdgeFor(vehicleType);
+      return randomEdgeFor(vehicleClass);
     }
   }
 
-  private synchronized String randomExitEdgeFor(String vehicleType) {
-    if (uniformBelow(FIXED_EXIT_EDGE_PROBABILITY.apply(vehicleType))) {
+  private synchronized String randomExitEdgeFor(String vehicleClass) {
+    if (uniformBelow(FIXED_EXIT_EDGE_PROBABILITY.apply(vehicleClass))) {
       int index = ThreadLocalRandom.current().nextInt(CACHED_EXIT_POSITIONS.length);
       return CACHED_EXIT_POSITIONS[index];
     } else {
-      return randomEdgeFor(vehicleType);
+      return randomEdgeFor(vehicleClass);
     }
   }
 
@@ -142,11 +142,11 @@ public final class RandomRouteGenerator {
     return ThreadLocalRandom.current().nextDouble() < prop;
   }
 
-  private String randomEdgeFor(String vehicleType) {
+  private String randomEdgeFor(String vehicleClass) {
     // sample from boundary
     double x = ThreadLocalRandom.current().nextDouble(fromX, toX);
     double y = ThreadLocalRandom.current().nextDouble(fromY, toY);
-    TraCIRoadPosition edge = Simulation.convertRoad(x, y, false, vehicleType);
+    TraCIRoadPosition edge = Simulation.convertRoad(x, y, false, vehicleClass);
     return edge.getEdgeID();
   }
 }
