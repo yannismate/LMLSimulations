@@ -2,25 +2,22 @@ package de.tum.logistics.problems.serialization;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public record Route(String id, List<String> edges, List<Stop> stops) {
 
   public Route withSortedStopsOnSameEdge() {
-    List<Stop> sortedStops = new ArrayList<>(stops);
-    for (int i = 0; i < sortedStops.size() - 1; i++) {
-      for (int j = 0; j < sortedStops.size() - i - 1; j++) {
-        if (sortedStops.get(j).edgeId().equals(sortedStops.get(j + 1).edgeId())) {
-          continue;
-        }
-        if (sortedStops.get(j).positionOnEdge() < sortedStops.get(j + 1).positionOnEdge()) {
-          Collections.swap(sortedStops, j, j + 1);
-        }
-      }
+    LinkedHashMap<String, List<Stop>> stopsByEdge = new LinkedHashMap<>();
+
+    for (Stop stop : stops) {
+      stopsByEdge.computeIfAbsent(stop.edgeId(), k -> new ArrayList<>()).add(stop);
     }
-    return new Route(id, edges, sortedStops);
+
+    for (List<Stop> stops : stopsByEdge.values()) {
+      stops.sort(Comparator.comparingDouble(Stop::positionOnEdge));
+    }
+
+    return new Route(id, edges, stopsByEdge.entrySet().stream().flatMap(e -> e.getValue().stream()).toList());
   }
 
   public void writeXML(BufferedWriter writer, String vehicleType) throws IOException {
