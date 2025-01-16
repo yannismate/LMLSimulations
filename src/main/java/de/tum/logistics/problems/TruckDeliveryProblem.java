@@ -166,7 +166,7 @@ public class TruckDeliveryProblem {
       writer.write("    <vType id=\"delivery_" + carrierName + "\" vClass=\"delivery\" color=\"" + carrierColor + "\"/>");
       writer.newLine();
       for (Route route : routes) {
-        route.writeXML(writer);
+        route.writeXML(writer, carrierName);
         writer.newLine();
       }
       writer.write("</routes>");
