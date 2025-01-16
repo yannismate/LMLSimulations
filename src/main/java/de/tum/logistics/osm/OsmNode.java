@@ -30,6 +30,10 @@ public record OsmNode(
     return Simulation.findRoute(edgeId, searchNextRoadEdgeFor(vehicleType), vehicleType).getCost() > 0;
   }
 
+  public boolean canRouteTo(String edgeId, String vehicleType) {
+    return Simulation.findRoute(searchNextRoadEdgeFor(vehicleType), edgeId, vehicleType).getCost() > 0;
+  }
+
   private record RoadPosition(String edgeId, double pos, int laneIndex) {
     public static RoadPosition from(TraCIRoadPosition roadPos) {
       return new RoadPosition(roadPos.getEdgeID(), roadPos.getPos(), roadPos.getLaneIndex());

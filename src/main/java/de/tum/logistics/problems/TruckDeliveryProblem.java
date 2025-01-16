@@ -38,21 +38,23 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class TruckDeliveryProblem {
   private final static int VEHICLE_CAPACITY = 150;
-  private final static int NUM_PARCELS = 15_000;
-  private final static String ENTRY_EDGE = "265616622#0";
-  private final static String EXIT_EDGE = "315225707";
+  private final static int ITERATIONS = 10_000;
+  private final static double OVERCAPACITY_FACTOR = 1.3;
+  public final static String ENTRY_EDGE = "265616622#0";
+  public final static String EXIT_EDGE = "315225707";
   private final static Location ORIGIN_LOCATION = Location.newInstance(11.584762300907554, 48.18316907203498);
 
   private VehicleRoutingProblem vrp;
   private VehicleRoutingProblemSolution solution;
 
-  public void init(List<OsmNode> possibleLocations) {
+  public void init(List<OsmNode> possibleLocations, int numParcels) {
     VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
     VehicleTypeImpl truckVehicle = VehicleTypeImpl.Builder.newInstance("truckBuilder")
         .addCapacityDimension(0, VEHICLE_CAPACITY)
         .build();
+
     vrpBuilder.setFleetSize(FleetSize.FINITE);
-    int vehicleCount = (NUM_PARCELS / VEHICLE_CAPACITY) + 1;
+    int vehicleCount = (int)Math.round(((double)numParcels / (double)VEHICLE_CAPACITY) * OVERCAPACITY_FACTOR);
     for (int i = 0; i < vehicleCount; i++) {
       VehicleImpl vehicle = VehicleImpl.Builder.newInstance("truck" + i)
           .setStartLocation(ORIGIN_LOCATION)
@@ -65,22 +67,16 @@ public class TruckDeliveryProblem {
     Map<OsmNode, Integer> demandMap = new HashMap<>();
     Random rand = new Random();
 
-    for (int i = 0; i < NUM_PARCELS; i++) {
+    for (int i = 0; i < numParcels; i++) {
       OsmNode location = possibleLocations.get(rand.nextInt(possibleLocations.size()));
       demandMap.put(location, demandMap.getOrDefault(location, 0) + 1);
     }
-    for (OsmNode node : ProgressBar.wrap(new HashSet<>(demandMap.keySet()),"Filtering unroutable packet requests")) {
-      if (!node.canBeReachedBy(ENTRY_EDGE,"passenger")) {
-        demandMap.remove(node);
-      }
-    }
+
     demandMap = clusterDemand(demandMap);
     Set<OsmNode> osmNodes = demandMap.keySet();
 
     System.out.println("Filtered out an additional " + (osmNodes.size() - demandMap.size()) + " unroutable of " + osmNodes.size() + " stops");
     System.out.println("Clustered demand contains " + demandMap.size() + " stops");
-
-//    router.setup(demandMap.keySet().stream().map(osmNode -> osmNode.searchNextRoadEdgeFor("passenger")).toList());
 
     for (Map.Entry<OsmNode, Integer> entry : ProgressBar.wrap(demandMap.entrySet(), "Converting geo coordinates to jsprit jobs")) {
       OsmNode location = entry.getKey();
@@ -92,17 +88,6 @@ public class TruckDeliveryProblem {
       vrpBuilder.addJob(delivery);
     }
     vrp = vrpBuilder.build();
-    /*Plotter plotter = new Plotter(vrp);
-    double latMin = possibleLocations.stream().mapToDouble(l -> l.latitude()).min().getAsDouble();
-    double latMax = possibleLocations.stream().mapToDouble(l -> l.latitude()).max().getAsDouble();
-    double longMin = possibleLocations.stream().mapToDouble(l -> l.longitude()).min().getAsDouble();
-    double longMax = possibleLocations.stream().mapToDouble(l -> l.longitude()).max().getAsDouble();
-    plotter.setBoundingBox(longMin, latMin, longMax, latMax);
-    plotter.plot("problem01.png", "p01");
-
-    plotter = new Plotter(vrp, solution);
-    plotter.setBoundingBox(longMin, latMin, longMax, latMax);
-    plotter.plot("solution01.png", "s01");*/
   }
 
   public void solve() {
@@ -111,35 +96,34 @@ public class TruckDeliveryProblem {
     }
     Instant timeBeforeSolve = Instant.now();
     int threads = Runtime.getRuntime().availableProcessors();
-    int iterations = 1_000;
 
-    System.out.println("Using " + threads + " threads for solving " + iterations + " iterations");
-    System.out.println("Solving vehicle routing problem for " + NUM_PARCELS +" deliveries in " + vrp.getJobs().size() + " stops...");
+    System.out.println("Using " + threads + " threads for solving " + ITERATIONS + " iterations");
+    System.out.println("Solving vehicle routing problem for " + vrp.getJobs().size() + " stops...");
     VehicleRoutingAlgorithm algorithm = Jsprit.Builder.newInstance(vrp).setExecutorService(
       Executors.newFixedThreadPool(threads), threads
     ).buildAlgorithm();
-    algorithm.setMaxIterations(iterations);
-    ProgressBar pb = new ProgressBarBuilder().setInitialMax(iterations).setTaskName("Solving VRP").build();
+    algorithm.setMaxIterations(ITERATIONS);
+    ProgressBar pb = new ProgressBarBuilder().setInitialMax(ITERATIONS).setTaskName("Solving VRP").build();
     algorithm.addListener((IterationEndsListener) (i, problem, solutions) -> {
 
       pb.step();
       pb.setExtraMessage("Best solution cost: " + Solutions.bestOf(solutions).getCost());
       System.out.println("Iteration " + i + " best solution cost: " + Solutions.bestOf(solutions).getCost());
     });
-    pb.maxHint(iterations);
+    pb.maxHint(ITERATIONS);
 
     solution = Solutions.bestOf(algorithm.searchSolutions());
     System.out.println("Solution found after " + Duration.between(timeBeforeSolve, Instant.now()).toSeconds() + " seconds, skipped " + solution.getUnassignedJobs().size() + " jobs");
   }
 
-  public void writeRouteXML(File targetFile) {
+  public void writeRouteXML(File targetFile, String carrierName, String carrierColor) {
     if (solution == null) {
       throw new IllegalStateException("No solution available");
     }
 
     List<Route> routes = new ArrayList<>();
 
-    System.out.println("Writing routes to " + targetFile.getAbsolutePath());
+    System.out.println("Writing " + carrierName + " routes to " + targetFile.getAbsolutePath());
 
     Random rand = new Random();
     int numRoute = 0;
@@ -153,17 +137,6 @@ public class TruckDeliveryProblem {
       for (TourActivity activity : vhRoute.getActivities()) {
         Coordinate stopCoords = activity.getLocation().getCoordinate();
         TraCIRoadPosition roadPos = Simulation.convertRoad(stopCoords.getX(), stopCoords.getY(), true, "passenger");
-
-        TraCIStage hubToPointRoute = Simulation.findRoute(ENTRY_EDGE, roadPos.getEdgeID());
-        if (hubToPointRoute.getCost() == 0.0) {
-          System.out.println("Vehicle " + (numRoute + 1) + " has unroutable stop from entry edge, skipping...");
-          continue;
-        }
-        TraCIStage pointToHubRoute = Simulation.findRoute(roadPos.getEdgeID(), EXIT_EDGE);
-        if (pointToHubRoute.getCost() == 0.0) {
-          System.out.println("Vehicle " + (numRoute + 1) + " has unroutable stop to exit edge, skipping...");
-          continue;
-        }
 
         edges.add(roadPos.getEdgeID());
         // 90% chance for "parking" (allowing other vehicles to pass)
@@ -182,7 +155,7 @@ public class TruckDeliveryProblem {
         stops.add(new Stop(roadPos.getEdgeID(), roadPos.getPos(), totalDuration, rand.nextDouble() <= 0.8));
       }
       edges.add(EXIT_EDGE);
-      Route route = new Route("delivery" + numRoute, edges, stops);
+      Route route = new Route("delivery_" + carrierName + "_" + numRoute, edges, stops);
       routes.add(route);
       numRoute++;
     }
@@ -192,7 +165,7 @@ public class TruckDeliveryProblem {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(targetFile))) {
       writer.write("<routes>");
       writer.newLine();
-      writer.write("    <vType id=\"delivery\" vClass=\"delivery\" color=\"#547389\"/>");
+      writer.write("    <vType id=\"delivery_" + carrierName + "\" vClass=\"delivery\" color=\"" + carrierColor + "\"/>");
       writer.newLine();
       for (Route route : routes) {
         route.writeXML(writer);
