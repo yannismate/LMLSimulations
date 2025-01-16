@@ -4,6 +4,7 @@ import org.eclipse.sumo.libtraci.*;
 
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
 public class Main {
   public static final int SIMULATION_STEPS = 24 * 60 * 60;
   public static final int SPEEDUP_FACTOR = 60;
-  public static final int SIMULATION_STEP_BEGINNING = 5 * 60 * 60;
+  public static final int SIMULATION_STEP_BEGINNING = 7 * 60 * 60;
   public static final File RESOURCE_FOLDER = new File("src/main/resources");
   public static TraCIPosition fromBoundary, toBoundary;
 
@@ -89,6 +90,9 @@ public class Main {
         String vehicleClass = "passenger";
         try {
           Vehicle.add(vehID, routeId, vehicleClass);
+          int gray = ThreadLocalRandom.current().nextInt(130, 256);
+          Vehicle.setColor(vehID, new TraCIColor(gray, gray, gray, 255));
+
         } catch (Exception tryAgain) {
           continue;
         }
@@ -116,11 +120,11 @@ public class Main {
         activeVehiclesByType.computeIfAbsent(vehicleClass, k -> new AtomicLong(0)).incrementAndGet();
         vehicleIdToType.put(vehID, vehicleClass);
       }
-      try {
-        Thread.sleep(1000 / SPEEDUP_FACTOR);
-      } catch (InterruptedException e) {
-        throw new RuntimeException(e);
-      }
+//      try {
+//        Thread.sleep(1000 / SPEEDUP_FACTOR);
+//      } catch (InterruptedException e) {
+//        throw new RuntimeException(e);
+//      }
     }
     Simulation.close();
   }

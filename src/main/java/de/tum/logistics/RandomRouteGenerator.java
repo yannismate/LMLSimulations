@@ -17,7 +17,6 @@ public final class RandomRouteGenerator {
   private final String vehicleType;
   private final int requestedRoutes;
   private final Deque<String> availableRoutes = new LinkedBlockingDeque<>();
-  private final Executor executor = Executors.newFixedThreadPool(1);
   private final double fromX, fromY, toX, toY;
 
   private int generatedRoutes = 0;
@@ -31,8 +30,6 @@ public final class RandomRouteGenerator {
   ) {
     this.vehicleType = vehicleType;
     this.requestedRoutes = requestedRouteBuffer;
-//    this.fromBoundary = fromBoundary;
-//    this.toBoundary = toBoundary;
     this.fromX = fromBoundary.getX();
     this.fromY = fromBoundary.getY();
     this.toX = toBoundary.getX();
