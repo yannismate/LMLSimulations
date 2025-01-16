@@ -1,6 +1,6 @@
 <routes>
     <vType id="delivery_ups" vClass="delivery" color="#704300"/>
-    <trip id="delivery_ups_0" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_0" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="153625892#0" endPos="38.50013634420738" duration="324.0" parking="true"/>
         <stop edge="47634448#2" endPos="113.77835516909758" duration="205.0" parking="true"/>
         <stop edge="-4651574#3" endPos="8.999657388330865" duration="242.0" parking="false"/>
@@ -101,7 +101,7 @@
         <stop edge="157093962#5" endPos="19.779671391428074" duration="211.0" parking="true"/>
         <stop edge="-146789787#2" endPos="28.971032902256674" duration="229.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_1" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_1" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="38626612#4" endPos="90.282310897718" duration="238.0" parking="true"/>
         <stop edge="157102853#0" endPos="8.601516669657036" duration="192.0" parking="true"/>
         <stop edge="-83028197#0" endPos="58.94728704181958" duration="301.0" parking="true"/>
@@ -180,7 +180,7 @@
         <stop edge="157093962#1" endPos="36.20481057614073" duration="88.0" parking="true"/>
         <stop edge="47634438#0" endPos="41.91450789324681" duration="156.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_2" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_2" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="36965396#1" endPos="13.766771673063301" duration="229.0" parking="true"/>
         <stop edge="23034604" endPos="4.60780272197165" duration="290.0" parking="true"/>
         <stop edge="339700565#1" endPos="53.65420926958407" duration="273.0" parking="true"/>
@@ -265,7 +265,7 @@
         <stop edge="157107344" endPos="13.188617072440685" duration="242.0" parking="true"/>
         <stop edge="-24379331#0" endPos="96.8246277655431" duration="299.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_3" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_3" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="71143057#2" endPos="49.31952797972862" duration="301.0" parking="true"/>
         <stop edge="39380980#1" endPos="72.22863870611083" duration="464.0" parking="true"/>
         <stop edge="4519925#4" endPos="41.028569989393574" duration="283.0" parking="true"/>
@@ -356,7 +356,7 @@
         <stop edge="155603789#4" endPos="68.56275760562663" duration="125.0" parking="true"/>
         <stop edge="8535659" endPos="106.04950320495868" duration="301.0" parking="false"/>
     </trip>
-    <trip id="delivery_ups_4" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_4" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="24379331#5" endPos="31.75465856603005" duration="343.0" parking="true"/>
         <stop edge="7390561#0" endPos="39.71243630688601" duration="290.0" parking="true"/>
         <stop edge="5344067" endPos="13.698721206233586" duration="338.0" parking="true"/>
@@ -445,7 +445,7 @@
         <stop edge="153625868#3" endPos="12.919056285963187" duration="125.0" parking="true"/>
         <stop edge="-7390904#3" endPos="49.17047996798203" duration="392.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_5" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_5" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="153625839#1" endPos="135.19136888439897" duration="166.0" parking="false"/>
         <stop edge="153625882#1" endPos="33.524235921324475" duration="334.0" parking="true"/>
         <stop edge="153625882#1" endPos="12.128898477940613" duration="141.0" parking="true"/>
@@ -536,7 +536,7 @@
         <stop edge="29418700#4" endPos="29.269477303851872" duration="154.0" parking="true"/>
         <stop edge="8042147#1" endPos="40.33557445884835" duration="233.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_6" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_6" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="36580438" endPos="413.99394107691626" duration="271.0" parking="false"/>
         <stop edge="-7390734" endPos="88.32359434724101" duration="340.0" parking="true"/>
         <stop edge="26416346#0" endPos="15.535459593916332" duration="394.0" parking="true"/>
@@ -636,7 +636,7 @@
         <stop edge="74549432#1" endPos="73.05425519129406" duration="157.0" parking="true"/>
         <stop edge="-38436509#4" endPos="31.096204480678868" duration="269.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_7" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_7" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="300559237#2" endPos="46.45023291105339" duration="226.0" parking="false"/>
         <stop edge="157188167#4" endPos="16.908120393478644" duration="203.0" parking="true"/>
         <stop edge="38626587#2" endPos="9.021026174501621" duration="159.0" parking="true"/>
@@ -726,7 +726,7 @@
         <stop edge="7389631#0" endPos="119.59856301471503" duration="114.0" parking="false"/>
         <stop edge="-38436509#1" endPos="8.737010268123823" duration="250.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_8" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_8" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-300326719#4" endPos="43.44689991424263" duration="205.0" parking="true"/>
         <stop edge="80819311" endPos="13.988078180727463" duration="202.0" parking="true"/>
         <stop edge="-1335131482" endPos="68.13633814677377" duration="194.0" parking="true"/>
@@ -817,7 +817,7 @@
         <stop edge="226522617#0" endPos="48.965177733400616" duration="242.0" parking="true"/>
         <stop edge="226522617#2" endPos="33.19000535411763" duration="304.0" parking="false"/>
     </trip>
-    <trip id="delivery_ups_9" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_9" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-49603491#2" endPos="8.37424923419664" duration="179.0" parking="true"/>
         <stop edge="-157093968#1" endPos="26.38928910352103" duration="355.0" parking="true"/>
         <stop edge="71143057#2" endPos="121.89730136202016" duration="205.0" parking="true"/>
@@ -905,7 +905,7 @@
         <stop edge="-24379331#3" endPos="25.51920815763865" duration="216.0" parking="false"/>
         <stop edge="-49603491#2" endPos="63.75273491196643" duration="349.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_10" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_10" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="47634448#2" endPos="67.3805017163977" duration="236.0" parking="true"/>
         <stop edge="-4651574#1" endPos="6.2240960917083745" duration="255.0" parking="true"/>
         <stop edge="-4651574#2" endPos="62.79234152574766" duration="176.0" parking="true"/>
@@ -991,7 +991,7 @@
         <stop edge="157093962#2" endPos="1.2481727731040866" duration="251.0" parking="true"/>
         <stop edge="92419839#1" endPos="29.62815357331619" duration="175.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_11" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_11" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-24379331#5" endPos="63.774895892112454" duration="182.0" parking="false"/>
         <stop edge="157093962#3" endPos="46.61912050777053" duration="310.0" parking="true"/>
         <stop edge="5343951" endPos="64.80906548798428" duration="201.0" parking="true"/>
@@ -1070,7 +1070,7 @@
         <stop edge="-38626587#0" endPos="68.24256542097221" duration="136.0" parking="false"/>
         <stop edge="7390904#3" endPos="6.561698107643251" duration="185.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_12" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_12" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="36580438" endPos="265.61961848805726" duration="265.0" parking="true"/>
         <stop edge="36580420#1" endPos="12.822291038722406" duration="257.0" parking="true"/>
         <stop edge="7390762#2" endPos="45.500687616672195" duration="186.0" parking="true"/>
@@ -1174,7 +1174,7 @@
         <stop edge="-153625882#2" endPos="1.0314221474047018" duration="232.0" parking="false"/>
         <stop edge="153625882#3" endPos="12.731139556339741" duration="362.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_13" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_13" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-92419839#0" endPos="71.57956655281762" duration="299.0" parking="true"/>
         <stop edge="-7390904#1" endPos="33.55168286725392" duration="167.0" parking="true"/>
         <stop edge="-38626612#5" endPos="80.27890054199237" duration="217.0" parking="true"/>
@@ -1267,7 +1267,7 @@
         <stop edge="-38862722" endPos="27.525800464370356" duration="193.0" parking="true"/>
         <stop edge="-38862722" endPos="48.25688009291126" duration="398.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_14" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_14" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="47634455#0" endPos="16.25946838881994" duration="203.0" parking="true"/>
         <stop edge="-157188165#2" endPos="5.804451023728242" duration="395.0" parking="true"/>
         <stop edge="426542002#0" endPos="33.62323538615794" duration="161.0" parking="true"/>
@@ -1362,7 +1362,7 @@
         <stop edge="-22698136#0" endPos="112.89763171100687" duration="203.0" parking="true"/>
         <stop edge="36580420#1" endPos="172.45333902068134" duration="172.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_15" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_15" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-22698136#0" endPos="236.77345401469628" duration="228.0" parking="true"/>
         <stop edge="-5219113#1" endPos="20.856575304716234" duration="320.0" parking="true"/>
         <stop edge="49602856#1" endPos="36.434361188565724" duration="155.0" parking="true"/>
@@ -1452,7 +1452,7 @@
         <stop edge="71143057#2" endPos="173.9910363221188" duration="131.0" parking="true"/>
         <stop edge="-153625892#0" endPos="68.23100065255673" duration="374.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_16" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_16" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-157090560" endPos="25.59162925241293" duration="246.0" parking="false"/>
         <stop edge="449594859#1" endPos="65.02306406621598" duration="275.0" parking="true"/>
         <stop edge="449594859#1" endPos="89.49450214411537" duration="183.0" parking="false"/>
@@ -1526,7 +1526,7 @@
         <stop edge="-92419839#0" endPos="31.301009165380506" duration="131.0" parking="true"/>
         <stop edge="-92419839#0" endPos="51.33318062467248" duration="165.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_17" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_17" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-146789787#0" endPos="12.287724136607585" duration="158.0" parking="true"/>
         <stop edge="146789787#4" endPos="39.1082842910709" duration="336.0" parking="true"/>
         <stop edge="7390561#1" endPos="25.81143616809834" duration="342.0" parking="true"/>
@@ -1619,7 +1619,7 @@
         <stop edge="-49603491#2" endPos="63.94384482412509" duration="510.0" parking="true"/>
         <stop edge="49603491#2" endPos="27.061653519220297" duration="159.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_18" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_18" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-92419839#0" endPos="75.9612829346584" duration="157.0" parking="true"/>
         <stop edge="-7390904#1" endPos="17.78276933960448" duration="267.0" parking="true"/>
         <stop edge="-7390904#1" endPos="17.78276933960448" duration="200.0" parking="true"/>
@@ -1704,7 +1704,7 @@
         <stop edge="-38436509#4" endPos="8.56077047041606" duration="167.0" parking="true"/>
         <stop edge="-38436509#3" endPos="16.42123156426078" duration="199.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_19" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_19" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="153625882#2" endPos="16.49870231045794" duration="254.0" parking="true"/>
         <stop edge="-153625882#1" endPos="1.160623029671826" duration="457.0" parking="true"/>
         <stop edge="-153625882#1" endPos="33.582238756834826" duration="516.0" parking="true"/>
@@ -1782,7 +1782,7 @@
         <stop edge="335244088#2" endPos="131.74355427141333" duration="155.0" parking="true"/>
         <stop edge="31352158" endPos="38.82738344377603" duration="323.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_20" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_20" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="1206081741#0" endPos="64.7120813685528" duration="190.0" parking="false"/>
         <stop edge="165770527#2" endPos="125.6199709014193" duration="187.0" parking="true"/>
         <stop edge="-165770526#2" endPos="28.30924910818402" duration="189.0" parking="true"/>
@@ -1825,7 +1825,7 @@
         <stop edge="25402988#2" endPos="177.16004114340032" duration="270.0" parking="false"/>
         <stop edge="25402988#2" endPos="138.02886753357294" duration="272.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_21" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_21" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="25402988#2" endPos="30.975901790744867" duration="378.0" parking="false"/>
         <stop edge="25402988#2" endPos="159.80190021734091" duration="134.0" parking="false"/>
         <stop edge="153625868#3" endPos="31.364294053920045" duration="200.0" parking="true"/>
@@ -1885,7 +1885,7 @@
         <stop edge="-146789787#0" endPos="9.059746375806604" duration="332.0" parking="true"/>
         <stop edge="-146789787#0" endPos="46.206633448131086" duration="292.0" parking="false"/>
     </trip>
-    <trip id="delivery_ups_22" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_22" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="92419839#0" endPos="77.05213786997216" duration="202.0" parking="false"/>
         <stop edge="-146789787#0" endPos="12.765339035729898" duration="409.0" parking="true"/>
         <stop edge="-199631849#1" endPos="35.35638110407974" duration="302.0" parking="true"/>
@@ -1944,7 +1944,7 @@
         <stop edge="-24379331#4" endPos="17.612118582621346" duration="294.0" parking="true"/>
         <stop edge="24379331#0" endPos="66.4077371063904" duration="356.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_23" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_23" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="36580420#1" endPos="70.27689380220836" duration="193.0" parking="true"/>
         <stop edge="22698136#0" endPos="203.78171780141756" duration="238.0" parking="false"/>
         <stop edge="22698136#0" endPos="156.1996788218725" duration="189.0" parking="true"/>
@@ -2028,7 +2028,7 @@
         <stop edge="36965397" endPos="89.42" duration="337.0" parking="true"/>
         <stop edge="36965397" endPos="45.85327392547451" duration="355.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_24" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_24" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-7385372#1" endPos="31.94302850638603" duration="262.0" parking="false"/>
         <stop edge="-119963096#0" endPos="8.754168881850278" duration="177.0" parking="true"/>
         <stop edge="34140426#3" endPos="52.67613018674001" duration="337.0" parking="true"/>
@@ -2109,7 +2109,7 @@
         <stop edge="-38436509#3" endPos="1.3267839888495665" duration="265.0" parking="false"/>
         <stop edge="107947690#3" endPos="55.930459238694716" duration="191.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_25" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_25" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-146789787#0" endPos="11.886849962937525" duration="354.0" parking="true"/>
         <stop edge="-157188167#3" endPos="124.50003457937568" duration="157.0" parking="true"/>
         <stop edge="83028196#0" endPos="64.53948730554674" duration="448.0" parking="true"/>
@@ -2192,7 +2192,7 @@
         <stop edge="206863693#5" endPos="11.071292409809578" duration="158.0" parking="true"/>
         <stop edge="-5219118#0" endPos="41.96801139637387" duration="207.0" parking="true"/>
     </trip>
-    <trip id="delivery_ups_26" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_ups_26" type="delivery_ups" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="153625864#0" endPos="68.7883415515491" duration="278.0" parking="true"/>
         <stop edge="-300559237#2" endPos="62.57737353648133" duration="187.0" parking="true"/>
         <stop edge="157102852#3" endPos="37.544218088949094" duration="277.0" parking="true"/>

@@ -1,6 +1,6 @@
 <routes>
     <vType id="delivery_dhl" vClass="delivery" color="#FFFF00"/>
-    <trip id="delivery_dhl_0" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_0" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-39380980#2" endPos="8.647689252011439" duration="152.0" parking="true"/>
         <stop edge="-426542002#1" endPos="71.77498498280092" duration="159.0" parking="true"/>
         <stop edge="1093404774#5" endPos="56.097796596156506" duration="206.0" parking="true"/>
@@ -63,7 +63,7 @@
         <stop edge="157093962#1" endPos="36.20481057614073" duration="166.0" parking="true"/>
         <stop edge="24379331#3" endPos="40.731523544061666" duration="175.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_1" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_1" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="5343829#3" endPos="15.652789530533962" duration="217.0" parking="true"/>
         <stop edge="-30816922#1" endPos="80.93270928589544" duration="219.0" parking="true"/>
         <stop edge="-155603789#6" endPos="6.22107114445014" duration="413.0" parking="false"/>
@@ -118,7 +118,7 @@
         <stop edge="124842494#1" endPos="28.92421175759666" duration="266.0" parking="true"/>
         <stop edge="-36580420#1" endPos="72.46436590076902" duration="191.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_2" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_2" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-22698136#0" endPos="188.77756300722632" duration="297.0" parking="true"/>
         <stop edge="5344721#3" endPos="26.97711308152705" duration="421.0" parking="true"/>
         <stop edge="874500364#1" endPos="40.634119007274975" duration="548.0" parking="true"/>
@@ -184,7 +184,7 @@
         <stop edge="-300559205#3" endPos="114.56965087345009" duration="204.0" parking="true"/>
         <stop edge="-4651573#1" endPos="109.54651364139279" duration="216.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_3" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_3" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="300559205#3" endPos="64.88232459810477" duration="183.0" parking="true"/>
         <stop edge="123173286#0" endPos="45.145367079867405" duration="210.0" parking="true"/>
         <stop edge="8535659" endPos="7.339860698021582" duration="342.0" parking="true"/>
@@ -236,7 +236,7 @@
         <stop edge="5349854#1" endPos="32.6216926779101" duration="183.0" parking="true"/>
         <stop edge="-426542002#1" endPos="54.92889020017465" duration="318.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_4" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_4" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="460247512#1" endPos="145.9467077816358" duration="424.0" parking="true"/>
         <stop edge="-71360468#2" endPos="6.2738995812533735" duration="170.0" parking="true"/>
         <stop edge="365762132#1" endPos="77.81115404411297" duration="253.0" parking="false"/>
@@ -290,7 +290,7 @@
         <stop edge="-42446213#0" endPos="130.78912801106495" duration="221.0" parking="true"/>
         <stop edge="851153416#2" endPos="19.40886406078033" duration="250.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_5" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_5" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="226522617#2" endPos="125.68182706443315" duration="189.0" parking="false"/>
         <stop edge="-5787451#2" endPos="27.538870577718072" duration="150.0" parking="true"/>
         <stop edge="34140426#2" endPos="87.22208131143125" duration="159.0" parking="true"/>
@@ -350,7 +350,7 @@
         <stop edge="300559237#5" endPos="35.433312302957596" duration="133.0" parking="false"/>
         <stop edge="-7390904#3" endPos="49.17047996798203" duration="248.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_6" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_6" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="38626587#0" endPos="110.56980252659208" duration="191.0" parking="true"/>
         <stop edge="-38626587#0" endPos="12.46069967571913" duration="324.0" parking="true"/>
         <stop edge="157102850#3" endPos="0.0" duration="212.0" parking="true"/>
@@ -403,7 +403,7 @@
         <stop edge="5219139#2" endPos="30.089526169324635" duration="261.0" parking="true"/>
         <stop edge="-92419839#0" endPos="71.57956655281762" duration="244.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_7" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_7" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-199631849#0" endPos="42.719520206833074" duration="154.0" parking="true"/>
         <stop edge="161970158" endPos="42.83010658429962" duration="203.0" parking="true"/>
         <stop edge="123173286#0" endPos="84.93729415766964" duration="246.0" parking="false"/>
@@ -479,7 +479,7 @@
         <stop edge="157090568#0" endPos="56.73392098402544" duration="232.0" parking="true"/>
         <stop edge="157090568#0" endPos="34.27647606348768" duration="230.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_8" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_8" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="83028197#0" endPos="35.459469452376354" duration="532.0" parking="true"/>
         <stop edge="-83028197#0" endPos="43.60371250295225" duration="351.0" parking="true"/>
         <stop edge="4649455#4" endPos="20.43601806199626" duration="129.0" parking="true"/>
@@ -526,7 +526,7 @@
         <stop edge="151866851#0" endPos="12.75360870048946" duration="481.0" parking="true"/>
         <stop edge="29418700#0" endPos="12.811957803417046" duration="185.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_9" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_9" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-92419839#0" endPos="92.72904877525986" duration="208.0" parking="true"/>
         <stop edge="5219139#2" endPos="61.76179613794359" duration="204.0" parking="true"/>
         <stop edge="157188167#5" endPos="11.28750998772365" duration="105.0" parking="true"/>
@@ -576,7 +576,7 @@
         <stop edge="-7390734" endPos="88.32359434724101" duration="351.0" parking="false"/>
         <stop edge="-49603491#2" endPos="94.40324237122779" duration="486.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_10" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_10" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="449595750#0" endPos="0.6778487386676612" duration="181.0" parking="true"/>
         <stop edge="39380980#1" endPos="72.22863870611083" duration="237.0" parking="true"/>
         <stop edge="39380980#1" endPos="35.2192067842623" duration="454.0" parking="true"/>
@@ -625,7 +625,7 @@
         <stop edge="83028197#0" endPos="4.968192571689845" duration="422.0" parking="true"/>
         <stop edge="1056477337#1" endPos="24.335574754586805" duration="167.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_11" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_11" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="36580420#1" endPos="126.2418020970794" duration="303.0" parking="true"/>
         <stop edge="22698136#0" endPos="173.94420150232528" duration="348.0" parking="true"/>
         <stop edge="-22698136#0" endPos="188.29981427353113" duration="289.0" parking="true"/>
@@ -679,7 +679,7 @@
         <stop edge="-153625882#4" endPos="13.787722125980553" duration="398.0" parking="false"/>
         <stop edge="153625882#4" endPos="11.433051643516672" duration="168.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_12" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_12" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="161970160#0" endPos="34.133335511893" duration="315.0" parking="true"/>
         <stop edge="4651573#1" endPos="10.899604982631306" duration="293.0" parking="true"/>
         <stop edge="300559205#3" endPos="47.7815117387017" duration="140.0" parking="true"/>
@@ -740,7 +740,7 @@
         <stop edge="-376107908#2" endPos="4.554099011467707" duration="365.0" parking="false"/>
         <stop edge="36580420#1" endPos="12.564163486548384" duration="245.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_13" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_13" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="25402988#2" endPos="138.02886753357294" duration="164.0" parking="true"/>
         <stop edge="80737020#0" endPos="65.0200302260651" duration="374.0" parking="true"/>
         <stop edge="80737020#0" endPos="40.63968623697487" duration="204.0" parking="true"/>
@@ -790,7 +790,7 @@
         <stop edge="300559237#2" endPos="25.390536538529176" duration="148.0" parking="true"/>
         <stop edge="-92419839#0" endPos="75.00588131669772" duration="173.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_14" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_14" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="107947690#3" endPos="55.930459238694716" duration="199.0" parking="true"/>
         <stop edge="-38436509#3" endPos="1.0807536925419623" duration="155.0" parking="true"/>
         <stop edge="74549431#2" endPos="41.03746042487743" duration="328.0" parking="true"/>
@@ -837,7 +837,7 @@
         <stop edge="47634429#2" endPos="57.002534483386036" duration="111.0" parking="true"/>
         <stop edge="1206081741#0" endPos="11.679334431666092" duration="244.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_15" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_15" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-39380980#2" endPos="26.459819906409116" duration="208.0" parking="false"/>
         <stop edge="-39380980#1" endPos="50.61606029223896" duration="394.0" parking="true"/>
         <stop edge="-851153414#0" endPos="29.775767282033705" duration="133.0" parking="true"/>
@@ -893,7 +893,7 @@
         <stop edge="24998222#1" endPos="56.05947441823918" duration="138.0" parking="true"/>
         <stop edge="37666060#1" endPos="1.600329505113848" duration="439.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_16" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_16" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-157093971#1" endPos="53.5028859515608" duration="224.0" parking="false"/>
         <stop edge="300326719#3" endPos="5.058494483624699" duration="275.0" parking="false"/>
         <stop edge="83028196#0" endPos="110.22010172851088" duration="148.0" parking="true"/>
@@ -941,7 +941,7 @@
         <stop edge="-158901369#2" endPos="24.866897978343268" duration="745.0" parking="true"/>
         <stop edge="-157188167#4" endPos="25.63741498318762" duration="190.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_17" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_17" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="36580438" endPos="335.55388900390943" duration="537.0" parking="true"/>
         <stop edge="-153625892#0" endPos="38.2172154259171" duration="358.0" parking="true"/>
         <stop edge="-157090560" endPos="25.59162925241293" duration="124.0" parking="true"/>
@@ -982,7 +982,7 @@
         <stop edge="24379331#1" endPos="21.176071198906072" duration="223.0" parking="false"/>
         <stop edge="-49603491#2" endPos="63.94384482412509" duration="504.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_18" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_18" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="24379331#0" endPos="93.8162902962535" duration="351.0" parking="true"/>
         <stop edge="-157093968#1" endPos="32.6053038375823" duration="269.0" parking="false"/>
         <stop edge="71143057#2" endPos="50.81298173475162" duration="240.0" parking="false"/>
@@ -1035,7 +1035,7 @@
         <stop edge="-153625882#1" endPos="3.467132691259986" duration="299.0" parking="false"/>
         <stop edge="153625839#1" endPos="131.4859718986086" duration="150.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_19" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_19" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-42446215#1" endPos="31.58719358407075" duration="211.0" parking="true"/>
         <stop edge="5349854#1" endPos="113.62058903591091" duration="305.0" parking="true"/>
         <stop edge="4519925#3" endPos="94.19296818505576" duration="416.0" parking="true"/>
@@ -1085,7 +1085,7 @@
         <stop edge="7390762#2" endPos="51.987987011240726" duration="245.0" parking="true"/>
         <stop edge="36580420#1" endPos="70.27689380220836" duration="299.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_20" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_20" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-153625882#5" endPos="15.050640940383738" duration="189.0" parking="false"/>
         <stop edge="-19680425#0" endPos="33.93300428070639" duration="258.0" parking="true"/>
         <stop edge="-19680425#0" endPos="49.731572732236316" duration="227.0" parking="true"/>
@@ -1148,7 +1148,7 @@
         <stop edge="-153625882#2" endPos="24.372369277865126" duration="126.0" parking="true"/>
         <stop edge="153625882#2" endPos="16.49870231045794" duration="347.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_21" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_21" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="24379331#0" endPos="93.58888555254497" duration="234.0" parking="true"/>
         <stop edge="161970161#4" endPos="14.066031531142963" duration="284.0" parking="true"/>
         <stop edge="29418700#1" endPos="38.7056380175236" duration="381.0" parking="true"/>
@@ -1201,7 +1201,7 @@
         <stop edge="-24379331#0" endPos="76.39840361908014" duration="314.0" parking="false"/>
         <stop edge="146789787#0" endPos="15.260918564631865" duration="332.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_22" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_22" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="153625839#1" endPos="139.39840800117815" duration="191.0" parking="false"/>
         <stop edge="36580420#1" endPos="183.760753421725" duration="326.0" parking="true"/>
         <stop edge="22698136#0" endPos="138.00415422247488" duration="450.0" parking="true"/>
@@ -1248,7 +1248,7 @@
         <stop edge="-153625882#2" endPos="1.0314221474047018" duration="313.0" parking="false"/>
         <stop edge="153625839#1" endPos="135.19136888439897" duration="456.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_23" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_23" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-107947690#1" endPos="69.67527689619334" duration="433.0" parking="true"/>
         <stop edge="107947690#1" endPos="21.573946751140674" duration="442.0" parking="true"/>
         <stop edge="38436509#3" endPos="1.731603468634419" duration="275.0" parking="false"/>
@@ -1290,7 +1290,7 @@
         <stop edge="-7390904#1" endPos="17.78276933960448" duration="240.0" parking="true"/>
         <stop edge="-7390904#1" endPos="17.78276933960448" duration="227.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_24" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_24" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-39380980#1" endPos="43.68173021400717" duration="131.0" parking="true"/>
         <stop edge="-851153414#0" endPos="82.63283602573645" duration="286.0" parking="false"/>
         <stop edge="796660770" endPos="122.99" duration="259.0" parking="false"/>
@@ -1352,7 +1352,7 @@
         <stop edge="-4651573#1" endPos="129.53406847808517" duration="106.0" parking="true"/>
         <stop edge="-49603491#2" endPos="112.8888137600116" duration="264.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_25" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_25" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-153625892#0" endPos="54.73883452788748" duration="425.0" parking="true"/>
         <stop edge="-376107908#2" endPos="79.11385838811012" duration="455.0" parking="false"/>
         <stop edge="39380980#4" endPos="35.05246502986301" duration="193.0" parking="true"/>
@@ -1410,7 +1410,7 @@
         <stop edge="-24379331#3" endPos="25.51920815763865" duration="246.0" parking="true"/>
         <stop edge="-49603491#2" endPos="63.75273491196643" duration="162.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_26" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_26" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="47634438#2" endPos="55.789066450054264" duration="403.0" parking="true"/>
         <stop edge="47634455#0" endPos="39.31622412322092" duration="302.0" parking="true"/>
         <stop edge="47634455#0" endPos="89.7174597224966" duration="166.0" parking="true"/>
@@ -1473,7 +1473,7 @@
         <stop edge="27807194#2" endPos="87.48806292305545" duration="125.0" parking="true"/>
         <stop edge="36580420#1" endPos="70.72880835268437" duration="280.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_27" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_27" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-22698136#0" endPos="113.79633333349699" duration="275.0" parking="true"/>
         <stop edge="-4651574#1" endPos="6.2240960917083745" duration="225.0" parking="true"/>
         <stop edge="4651574#2" endPos="52.01154861049728" duration="225.0" parking="true"/>
@@ -1534,7 +1534,7 @@
         <stop edge="-23541832#1" endPos="31.022311989338043" duration="135.0" parking="true"/>
         <stop edge="36580420#4" endPos="33.38420382747" duration="431.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_28" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_28" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-92419839#0" endPos="31.301009165380506" duration="312.0" parking="true"/>
         <stop edge="-146789787#4" endPos="35.83534939848922" duration="287.0" parking="true"/>
         <stop edge="-38626612#5" endPos="100.27415886896529" duration="151.0" parking="true"/>
@@ -1579,7 +1579,7 @@
         <stop edge="-80737020#0" endPos="126.16523072461003" duration="344.0" parking="true"/>
         <stop edge="38626587#0" endPos="41.41755774732783" duration="176.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_29" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_29" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="53129780#0" endPos="46.92041992743914" duration="219.0" parking="true"/>
         <stop edge="36965395" endPos="25.686683810527015" duration="217.0" parking="true"/>
         <stop edge="36965396#1" endPos="13.766771673063301" duration="214.0" parking="true"/>
@@ -1636,7 +1636,7 @@
         <stop edge="23034604" endPos="103.96831878766629" duration="382.0" parking="true"/>
         <stop edge="36965397" endPos="89.42" duration="286.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_30" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_30" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="49603491#2" endPos="89.16945258873187" duration="216.0" parking="true"/>
         <stop edge="-255429391#1" endPos="28.332131906083422" duration="365.0" parking="true"/>
         <stop edge="449594859#1" endPos="154.9970539240651" duration="292.0" parking="true"/>
@@ -1685,7 +1685,7 @@
         <stop edge="157093972#2" endPos="15.43429848394033" duration="315.0" parking="true"/>
         <stop edge="-146789787#0" endPos="12.765339035729898" duration="418.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_31" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_31" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-33487026#2" endPos="43.43809753368079" duration="327.0" parking="true"/>
         <stop edge="460247512#1" endPos="86.60434043780882" duration="207.0" parking="true"/>
         <stop edge="-80737020#0" endPos="42.61316887335299" duration="273.0" parking="true"/>
@@ -1743,7 +1743,7 @@
         <stop edge="5343456#1" endPos="30.937114345647373" duration="335.0" parking="true"/>
         <stop edge="83028197#0" endPos="64.75848316647391" duration="203.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_32" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_32" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-38321273#0" endPos="25.16985143712089" duration="170.0" parking="true"/>
         <stop edge="157093966#1" endPos="43.02878894476601" duration="173.0" parking="true"/>
         <stop edge="157093962#6" endPos="6.410481401777315" duration="175.0" parking="true"/>
@@ -1793,7 +1793,7 @@
         <stop edge="38626602#0" endPos="41.664865832404516" duration="173.0" parking="false"/>
         <stop edge="-38626587#0" endPos="95.2527163968877" duration="225.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_33" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_33" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-92419839#1" endPos="32.52509118389998" duration="204.0" parking="false"/>
         <stop edge="-146789787#0" endPos="34.184907526330605" duration="326.0" parking="true"/>
         <stop edge="-146789787#0" endPos="9.059746375806604" duration="189.0" parking="false"/>
@@ -1835,7 +1835,7 @@
         <stop edge="-24379331#5" endPos="33.295398359648544" duration="316.0" parking="true"/>
         <stop edge="24379331#0" endPos="9.411352063800942" duration="291.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_34" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_34" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-7390904#1" endPos="33.55168286725392" duration="180.0" parking="false"/>
         <stop edge="157093962#8" endPos="107.02054858124741" duration="243.0" parking="true"/>
         <stop edge="38626587#4" endPos="8.295848441523257" duration="220.0" parking="true"/>
@@ -1878,7 +1878,7 @@
         <stop edge="-5219118#0" endPos="41.96801139637387" duration="229.0" parking="false"/>
         <stop edge="-24379331#5" endPos="63.774895892112454" duration="216.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_35" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_35" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="157093966#1" endPos="24.235588793188434" duration="314.0" parking="true"/>
         <stop edge="161970161#1" endPos="67.58715602683046" duration="316.0" parking="true"/>
         <stop edge="29418700#1" endPos="11.118060804964943" duration="274.0" parking="true"/>
@@ -1942,7 +1942,7 @@
         <stop edge="-39380980#1" endPos="30.653772744142657" duration="86.0" parking="true"/>
         <stop edge="449594859#1" endPos="186.4518824302957" duration="233.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_36" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_36" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="157093962#1" endPos="66.93221949844387" duration="291.0" parking="true"/>
         <stop edge="157093962#1" endPos="51.36818798150498" duration="337.0" parking="true"/>
         <stop edge="-851153416#4" endPos="1.5583389244962702" duration="242.0" parking="true"/>
@@ -1992,7 +1992,7 @@
         <stop edge="36580420#4" endPos="1.6922110694223287" duration="228.0" parking="true"/>
         <stop edge="153625882#1" endPos="33.524235921324475" duration="327.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_37" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_37" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-92419839#1" endPos="11.094853264541916" duration="178.0" parking="true"/>
         <stop edge="-24379331#0" endPos="96.8246277655431" duration="417.0" parking="true"/>
         <stop edge="5343456#1" endPos="52.6787449641343" duration="294.0" parking="false"/>
@@ -2028,7 +2028,7 @@
         <stop edge="146789787#4" endPos="27.73246421189976" duration="160.0" parking="true"/>
         <stop edge="-146789787#2" endPos="28.971032902256674" duration="276.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_38" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_38" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="124842494#1" endPos="23.91480162793709" duration="162.0" parking="true"/>
         <stop edge="-19682357#6" endPos="4.819972809597876" duration="278.0" parking="true"/>
         <stop edge="19682446#9" endPos="0.3419355693357566" duration="306.0" parking="true"/>
@@ -2090,7 +2090,7 @@
         <stop edge="157090559" endPos="133.08783935260746" duration="280.0" parking="true"/>
         <stop edge="51095967#0" endPos="94.5061799639541" duration="185.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_39" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_39" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="335244088#2" endPos="54.16446941515293" duration="139.0" parking="true"/>
         <stop edge="51095967#1" endPos="19.307884848904465" duration="224.0" parking="false"/>
         <stop edge="157090568#0" endPos="44.62282124893998" duration="214.0" parking="true"/>
@@ -2154,7 +2154,7 @@
         <stop edge="-30816922#1" endPos="1.4376548940037273" duration="444.0" parking="false"/>
         <stop edge="-49603491#2" endPos="119.44246625770842" duration="375.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_40" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_40" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-38626612#4" endPos="67.88940095850889" duration="291.0" parking="false"/>
         <stop edge="-83028197#0" endPos="33.54325497495457" duration="202.0" parking="true"/>
         <stop edge="-4649455#4" endPos="108.51863741936988" duration="209.0" parking="true"/>
@@ -2213,7 +2213,7 @@
         <stop edge="127977585" endPos="25.83637804003162" duration="421.0" parking="false"/>
         <stop edge="49605509#1" endPos="28.123568675826835" duration="300.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_41" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_41" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="92419839#0" endPos="77.05213786997216" duration="326.0" parking="true"/>
         <stop edge="300559237#0" endPos="24.0400055241523" duration="348.0" parking="true"/>
         <stop edge="154575767#1" endPos="18.273849477681214" duration="207.0" parking="false"/>
@@ -2266,7 +2266,7 @@
         <stop edge="50166118#3" endPos="14.546354376070964" duration="254.0" parking="true"/>
         <stop edge="71360468#2" endPos="69.1240238585772" duration="617.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_42" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_42" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-119963096#0" endPos="8.754168881850278" duration="139.0" parking="true"/>
         <stop edge="34140426#2" endPos="48.92550440194677" duration="308.0" parking="false"/>
         <stop edge="34140426#2" endPos="25.74317622434014" duration="152.0" parking="true"/>
@@ -2295,7 +2295,7 @@
         <stop edge="226522617#0" endPos="48.965177733400616" duration="171.0" parking="false"/>
         <stop edge="226522617#2" endPos="33.19000535411763" duration="294.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_43" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_43" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-49603491#2" endPos="10.052838104952993" duration="376.0" parking="true"/>
         <stop edge="-157093968#1" endPos="26.38928910352103" duration="329.0" parking="true"/>
         <stop edge="-39380980#2" endPos="53.59777224324999" duration="243.0" parking="true"/>
@@ -2349,7 +2349,7 @@
         <stop edge="39380980#2" endPos="100.4998119832455" duration="176.0" parking="true"/>
         <stop edge="153625892#0" endPos="73.90061844661233" duration="299.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_44" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_44" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="124842494#1" endPos="8.564285327078837" duration="191.0" parking="true"/>
         <stop edge="-4651574#2" endPos="30.732709645583103" duration="350.0" parking="true"/>
         <stop edge="-4651574#3" endPos="87.53783036804141" duration="177.0" parking="true"/>
@@ -2411,7 +2411,7 @@
         <stop edge="157102850#3" endPos="47.02644287909504" duration="413.0" parking="true"/>
         <stop edge="-7390904#1" endPos="33.62495973292755" duration="190.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_45" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_45" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="4651573#3" endPos="8.962697191273676" duration="219.0" parking="true"/>
         <stop edge="851153415" endPos="87.47466567057693" duration="336.0" parking="true"/>
         <stop edge="426542002#1" endPos="6.280116774833818" duration="317.0" parking="true"/>
@@ -2465,7 +2465,7 @@
         <stop edge="-376107908#2" endPos="31.276558912767392" duration="492.0" parking="true"/>
         <stop edge="36580420#1" endPos="12.689551097777292" duration="200.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_46" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_46" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-146789787#3" endPos="16.49986790955387" duration="213.0" parking="true"/>
         <stop edge="-38626612#2" endPos="9.58042790413578" duration="297.0" parking="true"/>
         <stop edge="38626612#4" endPos="90.282310897718" duration="209.0" parking="true"/>
@@ -2526,7 +2526,7 @@
         <stop edge="7390904#3" endPos="6.561698107643251" duration="210.0" parking="true"/>
         <stop edge="25402988#2" endPos="28.190051767284473" duration="429.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_47" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_47" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="47634448#2" endPos="67.3805017163977" duration="237.0" parking="true"/>
         <stop edge="157188169" endPos="38.094017807383096" duration="210.0" parking="true"/>
         <stop edge="26632545#0" endPos="76.68621845627489" duration="141.0" parking="false"/>
@@ -2600,7 +2600,7 @@
         <stop edge="154575776#2" endPos="39.595717959000915" duration="195.0" parking="false"/>
         <stop edge="161970158" endPos="19.05691467892763" duration="314.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_48" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_48" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="107947690#3" endPos="1.008802705264382" duration="309.0" parking="true"/>
         <stop edge="-38436509#3" endPos="1.3267839888495665" duration="257.0" parking="true"/>
         <stop edge="-74549431#3" endPos="0.0" duration="386.0" parking="true"/>
@@ -2643,7 +2643,7 @@
         <stop edge="-38436509#4" endPos="31.096204480678868" duration="337.0" parking="true"/>
         <stop edge="-107947690#1" endPos="45.970411051668435" duration="178.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_49" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_49" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="25402988#2" endPos="180.2075542124391" duration="329.0" parking="true"/>
         <stop edge="153625868#3" endPos="54.55905525277972" duration="317.0" parking="true"/>
         <stop edge="309789062#1" endPos="61.81218477095566" duration="202.0" parking="true"/>
@@ -2701,7 +2701,7 @@
         <stop edge="-38436509#3" endPos="0.9402405568811295" duration="264.0" parking="false"/>
         <stop edge="-38436509#3" endPos="16.42123156426078" duration="329.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_50" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_50" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="31352158" endPos="38.82738344377603" duration="255.0" parking="false"/>
         <stop edge="335244088#2" endPos="131.74355427141333" duration="404.0" parking="false"/>
         <stop edge="51095967#0" endPos="51.97697787216913" duration="481.0" parking="true"/>
@@ -2747,7 +2747,7 @@
         <stop edge="36965397" endPos="33.47584055450599" duration="475.0" parking="true"/>
         <stop edge="-53129780#0" endPos="49.939422260463935" duration="212.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_51" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_51" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="157093962#5" endPos="19.779671391428074" duration="338.0" parking="true"/>
         <stop edge="-83028197#1" endPos="34.764672274014615" duration="142.0" parking="true"/>
         <stop edge="83028196#3" endPos="30.579306386577883" duration="333.0" parking="true"/>
@@ -2818,7 +2818,7 @@
         <stop edge="5219118#8" endPos="44.626364523982716" duration="374.0" parking="true"/>
         <stop edge="153625868#3" endPos="17.65410186232831" duration="106.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_52" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_52" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="5219118#8" endPos="53.03694861161928" duration="265.0" parking="false"/>
         <stop edge="315224430#0" endPos="50.72995261792229" duration="197.0" parking="true"/>
         <stop edge="4662591#0" endPos="36.1682519124425" duration="404.0" parking="true"/>
@@ -2877,7 +2877,7 @@
         <stop edge="38436509#2" endPos="71.45868111553953" duration="218.0" parking="false"/>
         <stop edge="1206081741#0" endPos="64.7120813685528" duration="261.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_53" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_53" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="47634438#2" endPos="38.19905025766934" duration="316.0" parking="true"/>
         <stop edge="-157093963#2" endPos="143.9510085898953" duration="274.0" parking="true"/>
         <stop edge="26416346#0" endPos="106.14456076920912" duration="172.0" parking="true"/>
@@ -2927,7 +2927,7 @@
         <stop edge="161970161#4" endPos="29.445618296881296" duration="321.0" parking="true"/>
         <stop edge="-38862724#0" endPos="92.52321057812878" duration="184.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_54" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_54" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="47634455#0" endPos="84.03660216918911" duration="367.0" parking="true"/>
         <stop edge="-300559205#3" endPos="90.85151402424967" duration="313.0" parking="false"/>
         <stop edge="-155603789#4" endPos="57.28612278139419" duration="322.0" parking="true"/>
@@ -2980,7 +2980,7 @@
         <stop edge="-4519978#2" endPos="24.830286425149936" duration="322.0" parking="true"/>
         <stop edge="4519976#1" endPos="37.35491336684972" duration="245.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_55" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_55" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="153625888#0" endPos="29.413195422709734" duration="155.0" parking="true"/>
         <stop edge="38626587#2" endPos="9.021026174501621" duration="226.0" parking="true"/>
         <stop edge="157102850#1" endPos="20.818660933127347" duration="214.0" parking="true"/>
@@ -3021,7 +3021,7 @@
         <stop edge="851153416#4" endPos="40.13935926320763" duration="261.0" parking="true"/>
         <stop edge="-24379331#0" endPos="45.817217432405734" duration="261.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_56" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_56" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-146789787#0" endPos="5.958548762636264" duration="447.0" parking="true"/>
         <stop edge="1056477338" endPos="28.02756254524038" duration="143.0" parking="false"/>
         <stop edge="-38626612#4" endPos="25.207966024244783" duration="222.0" parking="true"/>
@@ -3070,7 +3070,7 @@
         <stop edge="-157093971#1" endPos="31.559349633386724" duration="394.0" parking="true"/>
         <stop edge="-146789787#0" endPos="12.287724136607585" duration="213.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_57" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_57" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="7389623#0" endPos="34.48114080315366" duration="317.0" parking="true"/>
         <stop edge="7386776#2" endPos="87.55749262376932" duration="186.0" parking="true"/>
         <stop edge="5785606" endPos="11.423803560298685" duration="229.0" parking="true"/>
@@ -3124,7 +3124,7 @@
         <stop edge="-5219118#8" endPos="45.099582590089256" duration="516.0" parking="true"/>
         <stop edge="25402988#2" endPos="159.80190021734091" duration="517.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_58" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_58" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="1206081741#0" endPos="35.508054919278855" duration="234.0" parking="false"/>
         <stop edge="47634429#2" endPos="26.894380414661466" duration="269.0" parking="true"/>
         <stop edge="-7389623#0" endPos="63.50334560485165" duration="151.0" parking="true"/>
@@ -3182,7 +3182,7 @@
         <stop edge="300326719#4" endPos="70.47263177241496" duration="185.0" parking="true"/>
         <stop edge="-38626587#3" endPos="9.410511130286531" duration="422.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_59" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_59" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-92419839#0" endPos="51.33318062467248" duration="339.0" parking="true"/>
         <stop edge="-7390904#1" endPos="17.78276933960448" duration="316.0" parking="true"/>
         <stop edge="153625864#0" endPos="68.7883415515491" duration="219.0" parking="true"/>
@@ -3219,7 +3219,7 @@
         <stop edge="25402988#2" endPos="190.8635732502886" duration="328.0" parking="false"/>
         <stop edge="25402988#2" endPos="116.85423469785489" duration="410.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_60" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_60" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="161970160#0" endPos="66.50795258074407" duration="166.0" parking="true"/>
         <stop edge="123173286#0" endPos="12.341843448118594" duration="458.0" parking="false"/>
         <stop edge="4519925#3" endPos="60.724466015473325" duration="161.0" parking="false"/>
@@ -3284,7 +3284,7 @@
         <stop edge="-151786524#6" endPos="56.17942704853762" duration="124.0" parking="true"/>
         <stop edge="19680495#2" endPos="65.82583199238597" duration="164.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_61" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_61" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="47634438#0" endPos="41.91450789324681" duration="296.0" parking="false"/>
         <stop edge="5343829#0" endPos="85.75648765126157" duration="285.0" parking="true"/>
         <stop edge="157093962#1" endPos="23.488677699396796" duration="253.0" parking="true"/>
@@ -3311,7 +3311,7 @@
         <stop edge="5343763#2" endPos="13.755608962341897" duration="223.0" parking="false"/>
         <stop edge="-157093963#2" endPos="50.81603221654867" duration="239.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_62" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_62" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-92419839#0" endPos="7.162408537223216" duration="224.0" parking="false"/>
         <stop edge="-146789787#2" endPos="36.41364886187866" duration="217.0" parking="true"/>
         <stop edge="-146789787#4" endPos="16.483621896452362" duration="200.0" parking="true"/>
@@ -3361,7 +3361,7 @@
         <stop edge="161970160#0" endPos="13.401107237604908" duration="280.0" parking="true"/>
         <stop edge="24379331#0" endPos="66.06989196188857" duration="366.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_63" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_63" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-24379331#0" endPos="17.847224584190435" duration="210.0" parking="true"/>
         <stop edge="-157188178#1" endPos="0.0" duration="166.0" parking="true"/>
         <stop edge="154575774#2" endPos="0.30667245427268897" duration="173.0" parking="true"/>
@@ -3415,7 +3415,7 @@
         <stop edge="5343763#2" endPos="43.48024388214349" duration="229.0" parking="true"/>
         <stop edge="-7390734" endPos="72.21697640520219" duration="231.0" parking="false"/>
     </trip>
-    <trip id="delivery_dhl_64" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_64" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="36580438" endPos="265.61961848805726" duration="182.0" parking="true"/>
         <stop edge="36580420#1" endPos="12.822291038722406" duration="293.0" parking="false"/>
         <stop edge="-36580420#1" endPos="89.42910766716696" duration="193.0" parking="true"/>
@@ -3456,7 +3456,7 @@
         <stop edge="8042147#1" endPos="19.563135949995125" duration="367.0" parking="false"/>
         <stop edge="92419839#1" endPos="29.62815357331619" duration="225.0" parking="true"/>
     </trip>
-    <trip id="delivery_dhl_65" type="delivery" from="265616622#0" to="315225707" depart="01:00:00">
+    <trip id="delivery_dhl_65" type="delivery_dhl" from="265616622#0" to="315225707" depart="00:05:00">
         <stop edge="-7390904#1" endPos="37.22285507350433" duration="230.0" parking="true"/>
         <stop edge="-153625888#1" endPos="29.01980067354065" duration="188.0" parking="true"/>
         <stop edge="-157188170#2" endPos="10.435621580271256" duration="405.0" parking="true"/>

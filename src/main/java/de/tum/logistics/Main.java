@@ -14,8 +14,20 @@ public class Main {
   public static final int SIMULATION_STEPS = 24 * 60 * 60;
   public static final int SPEEDUP_FACTOR = 60;
   public static final int SIMULATION_STEP_BEGINNING = 7 * 60 * 60;
+  public static final int SIMULATION_PARCEL_DELIVERY_BEGINNING = (int) (7 * 60 * 60 + 6 * 60);
   public static final File RESOURCE_FOLDER = new File("src/main/resources");
   public static TraCIPosition fromBoundary, toBoundary;
+
+  static Set<String> parcelServices = new HashSet<>();
+  static List<String> deliveryVehicleIds = new ArrayList<>();
+  static Map<String, DeliveryVehicleStats> deliveryVehicleStats = new HashMap<>();
+  static Map<String, String> vehicleIdToParcelService = new HashMap<>();
+  static {
+
+    parcelServices.add("dhl");
+    parcelServices.add("ups");
+    parcelServices.add("dpd");
+  }
 
   public static void main(String[] args) {
     System.loadLibrary("libtracijni");
@@ -55,35 +67,6 @@ public class Main {
       }
     }
 
-    List<String> deliveryVehicleIds = new ArrayList<>();
-    Map<String, String> vehicleIdToParcelService = new HashMap<>();
-    Set<String> parcelServices = new HashSet<>();
-    parcelServices.add("dhl");
-    parcelServices.add("ups");
-    parcelServices.add("dpd");
-    for (String parcelService : parcelServices) {
-      for (int i = 0; i < 1000; i++) {
-        String vehicleIdToCheck = "delivery_"+parcelService+"_"+i;
-        try {
-          double mass = Vehicle.getMass(vehicleIdToCheck);
-          if (mass > 0) {
-            deliveryVehicleIds.add(vehicleIdToCheck);
-            vehicleIdToParcelService.put(vehicleIdToCheck, parcelService);
-            System.out.println("Found delivery vehicle: " + vehicleIdToCheck);
-            Vehicle.subscribe(vehicleIdToCheck, new IntVector(new int[]{
-              0x7a,// waiting time
-              0x73,// next stops // TraCINextStopDataVector2
-              0x60// co2 emission
-            }));
-          }
-        } catch (Exception e) {
-          // ignore
-          System.out.println("Stopping " + parcelService + " lookup at " + i);
-          break;
-        }
-      }
-    }
-
     // Ende:
     // - Co2 Verbrauch
     // - Straßen Blockiert Zeit
@@ -96,8 +79,10 @@ public class Main {
 
     int vehicleId = 0;
     for (int seconds = SIMULATION_STEP_BEGINNING; seconds < SIMULATION_STEPS; seconds++) {
+      if (deliveryVehicleIds.isEmpty() && SIMULATION_PARCEL_DELIVERY_BEGINNING < seconds) {
+        populateDeliveryVehicle();
+      }
       Simulation.step();
-
       String timeOfDay = String.format("%02d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60);
       long motorVehiclesOnRoad = activeVehiclesByType.computeIfAbsent("passenger", k -> new AtomicLong(0)).get();
       long expectedMotorVehicles = (int) expectedNumber((double) seconds / SIMULATION_STEPS, 3000);
@@ -115,6 +100,10 @@ public class Main {
         }
         totalVehicles.decrementAndGet();
         vehicleIdToType.remove(arrivedVehicleId);
+        DeliveryVehicleStats vehicleStats = deliveryVehicleStats.get(arrivedVehicleId);
+        if (vehicleStats != null) {
+          vehicleStats.arrivalTime = seconds;
+        }
       }
 
       int added = 0;
@@ -161,24 +150,63 @@ public class Main {
 //      } catch (InterruptedException e) {
 //        throw new RuntimeException(e);
 //      }
+      double totalCO2 = 0;
+      double addedCO2 = 0;
       for (String deliveryVehicleId : deliveryVehicleIds) {
-        TraCIResults subscriptionResults = Simulation.getSubscriptionResults(deliveryVehicleId);
-        if (subscriptionResults.isEmpty()) {
-          System.out.println("No subscription results for " + deliveryVehicleId);
-          continue;
+        DeliveryVehicleStats stats = deliveryVehicleStats.computeIfAbsent(deliveryVehicleId, k -> new DeliveryVehicleStats());
+        if (stats.stops == -1) {
+          stats.stops = Vehicle.getStops(deliveryVehicleId).size();
         }
-        TraCIResult co2Emissions = subscriptionResults.get(0x60);
-        String co2EmissionsString = co2Emissions.getString();
-        System.out.println("Co2 emissions for " + deliveryVehicleId + ": " + co2EmissionsString);
+        double co2Grams;
+        if (Double.isNaN(stats.lastCO2Value)) {
+          co2Grams = Vehicle.getCO2Emission(deliveryVehicleId) / 1000d;
+          stats.lastCO2Value = co2Grams;
+        } else {
+          co2Grams = stats.lastCO2Value;
+          stats.lastCO2Value = Double.NaN;
+        }
+        co2Grams = Math.max(0, co2Grams);
+        stats.co2Consumption += co2Grams;
+        totalCO2 += stats.co2Consumption;
+        addedCO2 += co2Grams;
+      }
+      if (seconds % 60 == 0) {
+        System.out.println("Added " + addedCO2 / 1000d + " kg CO2");
+        System.out.println("Total CO2: " + totalCO2 / (1000d) + " kg");
       }
     }
     Simulation.close();
   }
 
+  private static void populateDeliveryVehicle() {
+    System.out.println("Populating delivery vehicles");
+    for (String parcelService : parcelServices) {
+      for (int i = 0; i < 1000; i++) {
+        String vehicleIdToCheck = "delivery_"+parcelService+"_"+i;
+        try {
+          double mass = Vehicle.getMass(vehicleIdToCheck);
+          if (mass > 0) {
+            deliveryVehicleIds.add(vehicleIdToCheck);
+            vehicleIdToParcelService.put(vehicleIdToCheck, parcelService);
+            System.out.println("Found delivery vehicle: " + vehicleIdToCheck);
+          }
+        } catch (Exception e) {
+//          e.printStackTrace();
+          // ignore
+          System.out.println("Stopping " + parcelService + " lookup at " + i);
+          break;
+        }
+      }
+    }
+  }
+
   private static class DeliveryVehicleStats {
-    public long co2Consumption;
+    public double co2Consumption;
+    public double lastCO2Value;
+    public Map<String, Integer> arrivedAt = new HashMap<>();
+    public String nextStop;
     public long blockedTime;
-    public long manHours;
+    public long stops = -1;
     public long arrivalTime;
   }
 
