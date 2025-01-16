@@ -41,9 +41,9 @@ import me.tongfei.progressbar.ProgressBarBuilder;
 
 public class MicroHubDeliveryProblem {
 
-  private static final double OVERCAPACITY_FACTOR = 1.4;
+  private static final double OVERCAPACITY_FACTOR = 1.3;
   private static final int CARGO_BIKE_CAPACITY = 40;
-  private static final int ITERATIONS = 3000;
+  private static final int ITERATIONS = 5000;
 
   private List<VehicleRoutingProblem> problems = new ArrayList<>();
   private List<VehicleRoutingProblemSolution> solutions = new ArrayList<>();
@@ -171,6 +171,7 @@ public class MicroHubDeliveryProblem {
       }
       edges.add(hubEdge);
       Route route = new Route("delivery_" + carrierName + "_" + numRoute, edges, stops);
+      route = route.withSortedStopsOnSameEdge();
       routes.add(route);
       numRoute++;
     }
@@ -183,7 +184,7 @@ public class MicroHubDeliveryProblem {
       writer.write("    <vType id=\"delivery_bike_" + carrierName + "\" vClass=\"bicycle\" color=\"" + carrierColor + "\"/>");
       writer.newLine();
       for (Route route : routes) {
-        route.writeXML(writer, "bicycle");
+        route.writeXML(writer, "delivery_bike_" + carrierName);
         writer.newLine();
       }
       writer.write("</routes>");

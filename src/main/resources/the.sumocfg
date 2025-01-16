@@ -3,7 +3,7 @@
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
     <input>
         <net-file value="osm.net.xml.gz"/>
-        <route-files value="routes.xml"/>
+        <route-files value="routes_bikes.xml"/>
         <additional-files value="osm.poly.xml.gz"/>
     </input>
 
