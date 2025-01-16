@@ -161,10 +161,9 @@ public class Main {
 //      } catch (InterruptedException e) {
 //        throw new RuntimeException(e);
 //      }
-
       for (String deliveryVehicleId : deliveryVehicleIds) {
         TraCIResults subscriptionResults = Simulation.getSubscriptionResults(deliveryVehicleId);
-        if (subscriptionResults == null) {
+        if (subscriptionResults.isEmpty()) {
           System.out.println("No subscription results for " + deliveryVehicleId);
           continue;
         }
