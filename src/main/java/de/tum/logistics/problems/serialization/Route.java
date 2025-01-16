@@ -6,8 +6,8 @@ import java.util.List;
 
 public record Route(String id, List<String> edges, List<Stop> stops) {
 
-  public void writeXML(BufferedWriter writer) throws IOException {
-    writer.write("    <trip id=\"" + id + "\" type=\"delivery\" from=\"" + edges.getFirst() + "\" to=\"" + edges.getLast() + "\" depart=\"01:00:00\">");
+  public void writeXML(BufferedWriter writer, String vehicleType) throws IOException {
+    writer.write("    <trip id=\"" + id + "\" type=\"" + vehicleType + "\" from=\"" + edges.getFirst() + "\" to=\"" + edges.getLast() + "\" depart=\"01:00:00\">");
     writer.newLine();
     for (Stop stop : stops) {
       stop.writeXML(writer);

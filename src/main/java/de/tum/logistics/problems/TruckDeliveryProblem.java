@@ -105,10 +105,8 @@ public class TruckDeliveryProblem {
     algorithm.setMaxIterations(ITERATIONS);
     ProgressBar pb = new ProgressBarBuilder().setInitialMax(ITERATIONS).setTaskName("Solving VRP").build();
     algorithm.addListener((IterationEndsListener) (i, problem, solutions) -> {
-
       pb.step();
       pb.setExtraMessage("Best solution cost: " + Solutions.bestOf(solutions).getCost());
-      System.out.println("Iteration " + i + " best solution cost: " + Solutions.bestOf(solutions).getCost());
     });
     pb.maxHint(ITERATIONS);
 
@@ -168,7 +166,7 @@ public class TruckDeliveryProblem {
       writer.write("    <vType id=\"delivery_" + carrierName + "\" vClass=\"delivery\" color=\"" + carrierColor + "\"/>");
       writer.newLine();
       for (Route route : routes) {
-        route.writeXML(writer);
+        route.writeXML(writer, "delivery");
         writer.newLine();
       }
       writer.write("</routes>");
