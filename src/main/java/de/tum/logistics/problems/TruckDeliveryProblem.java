@@ -51,8 +51,6 @@ public class TruckDeliveryProblem {
     VehicleTypeImpl truckVehicle = VehicleTypeImpl.Builder.newInstance("truckBuilder")
         .addCapacityDimension(0, VEHICLE_CAPACITY)
         .build();
-//    GraphBasedRoutingCost router = new GraphBasedRoutingCost("passenger");
-//    vrpBuilder.setRoutingCost(router);
     vrpBuilder.setFleetSize(FleetSize.FINITE);
     int vehicleCount = (NUM_PARCELS / VEHICLE_CAPACITY) + 1;
     for (int i = 0; i < vehicleCount; i++) {

@@ -55,6 +55,41 @@ public class Main {
       }
     }
 
+    List<String> deliveryVehicleIds = new ArrayList<>();
+    Map<String, String> vehicleIdToParcelService = new HashMap<>();
+    Set<String> parcelServices = new HashSet<>();
+    parcelServices.add("dhl");
+    parcelServices.add("ups");
+    parcelServices.add("dpd");
+    for (String parcelService : parcelServices) {
+      for (int i = 0; i < 1000; i++) {
+        String vehicleIdToCheck = "delivery_"+parcelService+"_"+i;
+        try {
+          double mass = Vehicle.getMass(vehicleIdToCheck);
+          if (mass > 0) {
+            deliveryVehicleIds.add(vehicleIdToCheck);
+            vehicleIdToParcelService.put(vehicleIdToCheck, parcelService);
+            System.out.println("Found delivery vehicle: " + vehicleIdToCheck);
+            Vehicle.subscribe(vehicleIdToCheck, new IntVector(new int[]{
+              0x7a,// waiting time
+              0x73,// next stops // TraCINextStopDataVector2
+              0x60// co2 emission
+            }));
+          }
+        } catch (Exception e) {
+          // ignore
+          System.out.println("Stopping " + parcelService + " lookup at " + i);
+          break;
+        }
+      }
+    }
+
+    // Ende:
+    // - Co2 Verbrauch
+    // - Straßen Blockiert Zeit
+    // - Manhours pro Vehikel
+    // - Anfahrtszeit
+
     AtomicLong totalVehicles = new AtomicLong(0);
     Map<String, AtomicLong> activeVehiclesByType = new HashMap<>();
     Map<String, String> vehicleIdToType = new HashMap<>();
@@ -62,6 +97,7 @@ public class Main {
     int vehicleId = 0;
     for (int seconds = SIMULATION_STEP_BEGINNING; seconds < SIMULATION_STEPS; seconds++) {
       Simulation.step();
+
       String timeOfDay = String.format("%02d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60);
       long motorVehiclesOnRoad = activeVehiclesByType.computeIfAbsent("passenger", k -> new AtomicLong(0)).get();
       long expectedMotorVehicles = (int) expectedNumber((double) seconds / SIMULATION_STEPS, 3000);
@@ -70,6 +106,7 @@ public class Main {
       if (seconds % 30 == 0) {
         System.out.println(timeOfDay + ": " + motorVehiclesOnRoad + "/" + expectedMotorVehicles + " cars, " + bikeVehiclesOnRoad + "/" + expectedBikeVehicles + " bikes");
       }
+
       StringVector arrived = Simulation.getArrivedIDList();
       for (String arrivedVehicleId : arrived) {
         String type = vehicleIdToType.get(arrivedVehicleId);
@@ -92,7 +129,6 @@ public class Main {
           Vehicle.add(vehID, routeId, vehicleClass);
           int gray = ThreadLocalRandom.current().nextInt(130, 256);
           Vehicle.setColor(vehID, new TraCIColor(gray, gray, gray, 255));
-
         } catch (Exception tryAgain) {
           continue;
         }
@@ -125,8 +161,26 @@ public class Main {
 //      } catch (InterruptedException e) {
 //        throw new RuntimeException(e);
 //      }
+
+      for (String deliveryVehicleId : deliveryVehicleIds) {
+        TraCIResults subscriptionResults = Simulation.getSubscriptionResults(deliveryVehicleId);
+        if (subscriptionResults == null) {
+          System.out.println("No subscription results for " + deliveryVehicleId);
+          continue;
+        }
+        TraCIResult co2Emissions = subscriptionResults.get(0x60);
+        String co2EmissionsString = co2Emissions.getString();
+        System.out.println("Co2 emissions for " + deliveryVehicleId + ": " + co2EmissionsString);
+      }
     }
     Simulation.close();
+  }
+
+  private static class DeliveryVehicleStats {
+    public long co2Consumption;
+    public long blockedTime;
+    public long manHours;
+    public long arrivalTime;
   }
 
   public static double expectedNumber(
