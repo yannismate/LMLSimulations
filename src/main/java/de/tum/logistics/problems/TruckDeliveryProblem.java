@@ -114,7 +114,7 @@ public class TruckDeliveryProblem {
     System.out.println("Solution found after " + Duration.between(timeBeforeSolve, Instant.now()).toSeconds() + " seconds, skipped " + solution.getUnassignedJobs().size() + " jobs");
   }
 
-  public void writeRouteXML(File targetFile, String carrierName, String carrierColor) {
+  public void writeRouteXML(File targetFile, String carrierName, String carrierColor, String emissionClass) {
     if (solution == null) {
       throw new IllegalStateException("No solution available");
     }
@@ -163,7 +163,13 @@ public class TruckDeliveryProblem {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(targetFile))) {
       writer.write("<routes>");
       writer.newLine();
-      writer.write("    <vType id=\"delivery_" + carrierName + "\" vClass=\"delivery\" color=\"" + carrierColor + "\"/>");
+      writer.write("    <vType id=\"delivery_" + carrierName + "\" vClass=\"delivery\" color=\"" + carrierColor + "\">");
+      writer.newLine();
+      writer.write("        <param key=\"has.emission.device\" value=\"true\"/>");
+      writer.newLine();
+      writer.write("        <param key=\"emissionClass\" value=\"HBEFA4/" + emissionClass + "\"/>");
+      writer.newLine();
+      writer.write("    </vType>");
       writer.newLine();
       for (Route route : routes) {
         route.writeXML(writer, "delivery_" + carrierName);

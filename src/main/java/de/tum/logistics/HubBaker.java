@@ -31,29 +31,28 @@ public class HubBaker {
       }
     }
 
+    String emissionClass = "LCV_diesel_N1-III_Euro-6d";
     {
       TruckDeliveryProblem problem = new TruckDeliveryProblem();
       problem.init(possibleLocations, (int) (15000*0.6));
       problem.solve();
-      problem.writeRouteXML(new File(Main.RESOURCE_FOLDER, "routes_dhl.xml"), "dhl", "#FFFF00");
+      problem.writeRouteXML(new File(Main.RESOURCE_FOLDER, "routes_dhl.xml"), "dhl", "#FFFF00", emissionClass);
       problem.plotSolution(new File(Main.RESOURCE_FOLDER, "solution_dhl.png"));
     }
     {
       TruckDeliveryProblem problem = new TruckDeliveryProblem();
       problem.init(possibleLocations, (int) (15000*0.25));
       problem.solve();
-      problem.writeRouteXML(new File(Main.RESOURCE_FOLDER, "routes_ups.xml"), "ups", "#704300");
+      problem.writeRouteXML(new File(Main.RESOURCE_FOLDER, "routes_ups.xml"), "ups", "#704300", emissionClass);
       problem.plotSolution(new File(Main.RESOURCE_FOLDER, "solution_ups.png"));
     }
     {
       TruckDeliveryProblem problem = new TruckDeliveryProblem();
       problem.init(possibleLocations, (int) (15000*0.15));
       problem.solve();
-      problem.writeRouteXML(new File(Main.RESOURCE_FOLDER, "routes_dpd.xml"), "dpd", "#FF0000");
+      problem.writeRouteXML(new File(Main.RESOURCE_FOLDER, "routes_dpd.xml"), "dpd", "#FF0000", emissionClass);
       problem.plotSolution(new File(Main.RESOURCE_FOLDER, "solution_dpd.png"));
     }
-
-
 
     Simulation.close("Done!");
     System.exit(0);
