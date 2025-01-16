@@ -13,7 +13,7 @@ import me.tongfei.progressbar.ProgressBar;
 
 import org.eclipse.sumo.libtraci.VehicleType;
 
-public class ProblemBaking {
+public class MonopolyBaker {
 
   public static void main(String[] args) {
     System.loadLibrary("libtracijni");
