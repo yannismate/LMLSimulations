@@ -7,8 +7,6 @@ import com.graphhopper.jsprit.core.algorithm.listener.IterationEndsListener;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem.FleetSize;
-import com.graphhopper.jsprit.core.problem.job.Activity;
-import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.job.Service;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
@@ -24,7 +22,6 @@ import me.tongfei.progressbar.ProgressBar;
 import me.tongfei.progressbar.ProgressBarBuilder;
 import org.eclipse.sumo.libtraci.Simulation;
 import org.eclipse.sumo.libtraci.TraCIRoadPosition;
-import org.eclipse.sumo.libtraci.TraCIStage;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -156,6 +153,7 @@ public class TruckDeliveryProblem {
       }
       edges.add(EXIT_EDGE);
       Route route = new Route("delivery_" + carrierName + "_" + numRoute, edges, stops);
+      route = route.withSortedStopsOnSameEdge();
       routes.add(route);
       numRoute++;
     }
