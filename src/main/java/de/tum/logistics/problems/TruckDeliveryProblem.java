@@ -38,7 +38,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class TruckDeliveryProblem {
   private final static int VEHICLE_CAPACITY = 150;
-  private final static int ITERATIONS = 10_000;
+  private final static int ITERATIONS = 1_000;
   private final static double OVERCAPACITY_FACTOR = 1.3;
   public final static String ENTRY_EDGE = "265616622#0";
   public final static String EXIT_EDGE = "315225707";
@@ -165,7 +165,7 @@ public class TruckDeliveryProblem {
       writer.newLine();
       writer.write("    <vType id=\"delivery_" + carrierName + "\" vClass=\"delivery\" color=\"" + carrierColor + "\">");
       writer.newLine();
-      writer.write("        <param key=\"has.emission.device\" value=\"true\"/>");
+      writer.write("        <param key=\"has.emissions.device\" value=\"true\"/>");
       writer.newLine();
       writer.write("        <param key=\"emissionClass\" value=\"HBEFA4/" + emissionClass + "\"/>");
       writer.newLine();
