@@ -12,18 +12,18 @@ public record DepotNode(
     String edgeId,
     double roadPosition
 ) {
-  public DepotNode withoutUnroutableNodes(String vehicleType) {
-    if (edgeId == null) {
-      return this.withEdgeData(vehicleType).withoutUnroutableNodes(vehicleType);
+    public DepotNode withoutUnroutableNodes(String vehicleType) {
+        if (edgeId == null) {
+            return this.withEdgeData(vehicleType).withoutUnroutableNodes(vehicleType);
+        }
+        return new DepotNode(longitude, latitude, nodes.stream()
+            .filter(node -> node.canBeReachedBy(edgeId, vehicleType))
+            .toList(), edgeId, roadPosition);
     }
-    return new DepotNode(longitude, latitude, nodes.stream()
-        .filter(node -> node.canBeReachedBy(edgeId, vehicleType))
-        .toList(), edgeId, roadPosition);
-  }
 
-  public DepotNode withEdgeData(String vehicleType) {
-    TraCIRoadPosition depotPosition = Simulation.convertRoad(longitude, latitude, true, vehicleType);
-    return new DepotNode(longitude, latitude, nodes, depotPosition.getEdgeID(), depotPosition.getPos());
-  }
+    public DepotNode withEdgeData(String vehicleType) {
+        TraCIRoadPosition depotPosition = Simulation.convertRoad(longitude, latitude, true, vehicleType);
+        return new DepotNode(longitude, latitude, nodes, depotPosition.getEdgeID(), depotPosition.getPos());
+    }
 
 }

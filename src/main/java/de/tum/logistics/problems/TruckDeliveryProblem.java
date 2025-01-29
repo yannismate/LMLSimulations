@@ -7,6 +7,8 @@ import com.graphhopper.jsprit.core.algorithm.listener.IterationEndsListener;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem.FleetSize;
+import com.graphhopper.jsprit.core.problem.job.Activity;
+import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.job.Service;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
@@ -22,6 +24,7 @@ import me.tongfei.progressbar.ProgressBar;
 import me.tongfei.progressbar.ProgressBarBuilder;
 import org.eclipse.sumo.libtraci.Simulation;
 import org.eclipse.sumo.libtraci.TraCIRoadPosition;
+import org.eclipse.sumo.libtraci.TraCIStage;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -35,7 +38,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class TruckDeliveryProblem {
   private final static int VEHICLE_CAPACITY = 150;
-  private final static int ITERATIONS = 10_000;
+  private final static int ITERATIONS = 1_000;
   private final static double OVERCAPACITY_FACTOR = 1.3;
   public final static String ENTRY_EDGE = "265616622#0";
   public final static String EXIT_EDGE = "315225707";
@@ -102,10 +105,8 @@ public class TruckDeliveryProblem {
     algorithm.setMaxIterations(ITERATIONS);
     ProgressBar pb = new ProgressBarBuilder().setInitialMax(ITERATIONS).setTaskName("Solving VRP").build();
     algorithm.addListener((IterationEndsListener) (i, problem, solutions) -> {
-
       pb.step();
       pb.setExtraMessage("Best solution cost: " + Solutions.bestOf(solutions).getCost());
-      System.out.println("Iteration " + i + " best solution cost: " + Solutions.bestOf(solutions).getCost());
     });
     pb.maxHint(ITERATIONS);
 
@@ -113,7 +114,7 @@ public class TruckDeliveryProblem {
     System.out.println("Solution found after " + Duration.between(timeBeforeSolve, Instant.now()).toSeconds() + " seconds, skipped " + solution.getUnassignedJobs().size() + " jobs");
   }
 
-  public void writeRouteXML(File targetFile, String carrierName, String carrierColor) {
+  public void writeRouteXML(File targetFile, String carrierName, String carrierColor, String emissionClass) {
     if (solution == null) {
       throw new IllegalStateException("No solution available");
     }
@@ -153,7 +154,6 @@ public class TruckDeliveryProblem {
       }
       edges.add(EXIT_EDGE);
       Route route = new Route("delivery_" + carrierName + "_" + numRoute, edges, stops);
-      route = route.withSortedStopsOnSameEdge();
       routes.add(route);
       numRoute++;
     }
@@ -163,10 +163,16 @@ public class TruckDeliveryProblem {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(targetFile))) {
       writer.write("<routes>");
       writer.newLine();
-      writer.write("    <vType id=\"delivery_" + carrierName + "\" vClass=\"delivery\" color=\"" + carrierColor + "\"/>");
+      writer.write("    <vType id=\"delivery_" + carrierName + "\" vClass=\"delivery\" color=\"" + carrierColor + "\">");
+      writer.newLine();
+      writer.write("        <param key=\"has.emissions.device\" value=\"true\"/>");
+      writer.newLine();
+      writer.write("        <param key=\"emissionClass\" value=\"HBEFA4/" + emissionClass + "\"/>");
+      writer.newLine();
+      writer.write("    </vType>");
       writer.newLine();
       for (Route route : routes) {
-        route.writeXML(writer, carrierName);
+        route.writeXML(writer, "delivery_" + carrierName);
         writer.newLine();
       }
       writer.write("</routes>");

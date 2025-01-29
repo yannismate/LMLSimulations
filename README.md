@@ -5,5 +5,5 @@ Learn more by reading the [report](docs/final_report.pdf) that concluded our 5-d
 - [Eclipse SUMO](https://eclipse.dev/sumo/) (1.12.0)
 - Java 21
 ## How to run
-1. Run `VanProblemBaking` or `BikeHubProblemBaking` to generate delivery routes
+1. Run `VanProblemBaking`, `VanMonopolyProblemBaking` or `BikeHubProblemBaking` to generate delivery routes
 2. Run Simulation using `VanSimulation` or `BikeHubSimulation`
