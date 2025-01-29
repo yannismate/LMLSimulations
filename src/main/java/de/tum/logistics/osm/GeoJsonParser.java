@@ -16,8 +16,7 @@ public class GeoJsonParser {
         Gson gson = new Gson();
         try (FileReader reader = new FileReader(geoJsonFile)) {
             Type nodeListType = new TypeToken<List<OsmNode>>() {}.getType();
-            List<OsmNode> nodeList = gson.fromJson(reader, nodeListType);
-            return nodeList;
+          return gson.fromJson(reader, nodeListType);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
@@ -30,8 +29,7 @@ public class GeoJsonParser {
     Gson gson = new Gson();
     try (FileReader reader = new FileReader(geoJsonFile)) {
       Type nodeListType = new TypeToken<List<DepotNode>>() {}.getType();
-      List<DepotNode> nodeList = gson.fromJson(reader, nodeListType);
-      return nodeList;
+      return gson.fromJson(reader, nodeListType);
     } catch (IOException e) {
       e.printStackTrace();
       System.exit(1);

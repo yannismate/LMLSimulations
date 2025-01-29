@@ -24,16 +24,6 @@ public class BikeHubSimulation {
     fromBoundary = boundary.get(0);
     toBoundary = boundary.get(1);
 
-    Set<String> allowedEdges = new HashSet<>();
-    for (String edgeID : Edge.getIDList()) {
-      if (edgeID.startsWith(":") || edgeID.contains("cluster")) {
-        continue;
-      }
-      if(lanesFromEdge(edgeID).stream().anyMatch(laneId -> Lane.getAllowed(laneId).contains("passenger"))) {
-        allowedEdges.add(edgeID);
-      }
-    }
-
     for (String s : VehicleType.getIDList()) {
       System.out.println(s);
     }
@@ -130,24 +120,5 @@ public class BikeHubSimulation {
     double a = -5, b = -2.6, c = -0.1, d = 1.125, e = 0.01;
     double coeff = Math.max(Math.sin(b * Math.sin(a * linTime + d) + c), 0) + e;
     return coeff * maxInPeak;
-  }
-
-  public static List<String> lanesFromEdge(String edgeID) {
-    int lanes = Edge.getLaneNumber(edgeID);
-    // lane:<edgeid>_<laneIndex>
-    return IntStream.range(0, lanes)
-        .mapToObj(i -> edgeID + "_" + i)
-        .collect(Collectors.toList());
-  }
-
-  public static Stream<String> findStreet(String streetName) {
-    StringVector stringVector = Edge.getIDList();
-    return stringVector.stream().filter(s -> {
-      String theStreetName = Edge.getStreetName(s);
-      if (theStreetName == null || theStreetName.isEmpty()) {
-        return false;
-      }
-      return theStreetName.trim().startsWith(streetName);
-    });
   }
 }

@@ -12,9 +12,8 @@ import java.util.stream.Stream;
 
 public class VanSimulation {
   public static final int SIMULATION_STEPS = 24 * 60 * 60;
-  public static final int SPEEDUP_FACTOR = 60;
   public static final int SIMULATION_STEP_BEGINNING = 7 * 60 * 60;
-  public static final int SIMULATION_PARCEL_DELIVERY_BEGINNING = (int) (7 * 60 * 60 + 6 * 60);
+  public static final int SIMULATION_PARCEL_DELIVERY_BEGINNING = 7 * 60 * 60 + 6 * 60;
   public static final File RESOURCE_FOLDER = new File("src/main/resources");
   public static TraCIPosition fromBoundary, toBoundary;
 
@@ -36,16 +35,6 @@ public class VanSimulation {
     TraCPositionVector boundary = Simulation.getNetBoundary().getValue();
     fromBoundary = boundary.get(0);
     toBoundary = boundary.get(1);
-
-    Set<String> allowedEdges = new HashSet<>();
-    for (String edgeID : Edge.getIDList()) {
-      if (edgeID.startsWith(":") || edgeID.contains("cluster")) {
-        continue;
-      }
-      if(lanesFromEdge(edgeID).stream().anyMatch(laneId -> Lane.getAllowed(laneId).contains("passenger"))) {
-        allowedEdges.add(edgeID);
-      }
-    }
 
     for (String s : VehicleType.getIDList()) {
       System.out.println(s);

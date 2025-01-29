@@ -45,8 +45,8 @@ public class MicroHubDeliveryProblem {
   private static final int CARGO_BIKE_CAPACITY = 40;
   private static final int ITERATIONS = 5000;
 
-  private List<VehicleRoutingProblem> problems = new ArrayList<>();
-  private List<VehicleRoutingProblemSolution> solutions = new ArrayList<>();
+  private final List<VehicleRoutingProblem> problems = new ArrayList<>();
+  private final List<VehicleRoutingProblemSolution> solutions = new ArrayList<>();
 
   public void init(int totalNumParcels, List<DepotNode> hubs) {
     int totalAddresses = hubs.stream().map(d -> d.nodes().size()).reduce(0, Integer::sum);
@@ -139,7 +139,6 @@ public class MicroHubDeliveryProblem {
 
     System.out.println("Writing " + carrierName + " routes to " + targetFile.getAbsolutePath());
 
-    Random rand = new Random();
     int numRoute = 0;
     int totalVehicleCount = solutions.stream().mapToInt(s -> s.getRoutes().size()).sum();
 
