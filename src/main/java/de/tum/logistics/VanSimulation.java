@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class Main {
+public class VanSimulation {
   public static final int SIMULATION_STEPS = 24 * 60 * 60;
   public static final int SPEEDUP_FACTOR = 60;
   public static final int SIMULATION_STEP_BEGINNING = 7 * 60 * 60;
@@ -54,8 +54,8 @@ public class Main {
     VehicleType.copy("DEFAULT_VEHTYPE", "passenger");
     VehicleType.copy("DEFAULT_BIKETYPE", "bicycle");
 
-    RandomRouteGenerator pkwRouteGen = new RandomRouteGenerator("passenger", 10000, fromBoundary, toBoundary);
-    RandomRouteGenerator bikeRouteGen = new RandomRouteGenerator("bicycle", 5000, fromBoundary, toBoundary);
+    RandomRouteGenerator pkwRouteGen = new RandomRouteGenerator("passenger", "passenger", 10000, fromBoundary, toBoundary);
+    RandomRouteGenerator bikeRouteGen = new RandomRouteGenerator("bicycle", "bicycle", 5000, fromBoundary, toBoundary);
     pkwRouteGen.startPopulatingThread();
     bikeRouteGen.startPopulatingThread();
 

@@ -26,4 +26,17 @@ public class GeoJsonParser {
 
     }
 
+  public static List<DepotNode> parseDepotNodes(File geoJsonFile) {
+    Gson gson = new Gson();
+    try (FileReader reader = new FileReader(geoJsonFile)) {
+      Type nodeListType = new TypeToken<List<DepotNode>>() {}.getType();
+      List<DepotNode> nodeList = gson.fromJson(reader, nodeListType);
+      return nodeList;
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+      return Collections.emptyList();
+    }
+  }
+
 }
